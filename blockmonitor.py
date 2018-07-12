@@ -24,8 +24,10 @@ class Transaction(object):
          self.actions.add(action)
 
 class Action(object):
-    def __init__(self,action):
-         self.action = action;
+    def __init__(self,account,name,data):
+         self.account = account 
+         self.name    = name
+         self.data    = data
 
 class BlockMgr(object):
 
