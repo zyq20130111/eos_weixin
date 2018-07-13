@@ -10,18 +10,18 @@ from config import Config
 
 class BlockInfo(object):
     def __init__(self):
-         self.trxs = {}
+         self.trxs = []
 
     def addTrx(self,trx):
-         self.trx.append(trx)
+         self.trxs.append(trx)
 
 class Transaction(object):
-    def __init__(self,trx_id):
-         self.trx_id = trx_id
-         self.actions= {}
+    def __init__(self):
+         self.trx_id = 0
+         self.actions= []
 
     def addAction(self,action):
-         self.actions.add(action)
+         self.actions.append(action)
 
 class Action(object):
     def __init__(self,account,name,data):
@@ -46,53 +46,72 @@ class BlockMgr(object):
 
     def threadFun(self,arg):
        while(True):
-           time.sleep(1)
-           self.getBlockInfo(2000)
+           self.block_num_id = self.block_num_id + 1
+           time.sleep(0.01)
+           self.getBlockInfo(self.block_num_id)
 
     def Start(self):
 
-         self.block_num_id = 100     
+         self.block_num_id = 4000000     
          t =threading.Thread(target=self.threadFun,args=(1,))
          t.setDaemon(True)#设置线程为后台线程
          t.start()
 
-    def pareBlock(self,blockJson):
+    def parseBlock(self,blockJson):
        
-        block = self.BlockInfo()        
-        if("transactions" in js):
-              for trx in js["transactions"):
+        block = BlockInfo()        
+        if("transactions" in blockJson):
+              print '-----------------'
+              print 'in transations'
+              for trx in blockJson["transactions"]:
                   trxObj =  self.parseTransaction(trx)
                   block.addTrx(trxObj)
         else:
             print 'not exsit transaction'
+        return block
 
     def parseTransaction(self,trxJson):
         trx = Transaction()
         if("trx" in trxJson):
+           print '------------------'
+           print 'trx'
            if("transaction" in trxJson["trx"]):
+              print '----------------'
+              print 'in transaction'
               if("actions" in trxJson["trx"]["transaction"]):
-                  for actionJson in trxJson["trx"]["transaction"]["actions"]
+                  print '-------------'
+                  print 'actions'
+                  for actionJson in trxJson["trx"]["transaction"]["actions"] :
                          act =  self.parseAction(actionJson)
                          trx.addAction(act)
 
-         return trx       
+        return trx       
          
     
     
     def parseAction(self,actionJson):
-        action = Action()
+        print actionJson["account"]
+        print actionJson["name"]
+        print actionJson["data"]
+        action = Action(actionJson["account"],actionJson["name"],actionJson["data"])
         return action;
 
     def getBlockInfo(self,blockid):
 
         headers = {'content-type': "application/json"}
         url = Config.HTTP_URL + "get_block"
-        r = requests.post(url,data =json.dumps({"block_num_or_id":blockid}),headers = headers);
-        if( r.status_code == 200):
-           js = loads(r.text)
-           return self.parseBlock(js)
-        else:
-           return None
+        
+        try:
+             r = requests.post(url,data =json.dumps({"block_num_or_id":blockid}),headers = headers);
+             if( r.status_code == 200):
+                 js = json.loads(r.text)
+                 print '-------------------------'
+                 #print r.text
+                 return self.parseBlock(js)
+             else:
+                 return None
+        except:
+             print 'request error'
 
 
     def getInfo(self):
