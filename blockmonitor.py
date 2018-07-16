@@ -113,7 +113,9 @@ class BlockMgr(object):
         except:
              print 'request error'
 
-
+    
+    def sendMsg(self):
+        
     def getInfo(self):
 
         headers = {'content-type': "application/json"}
