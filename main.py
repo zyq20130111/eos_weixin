@@ -9,16 +9,12 @@ from menu import Menu
 from handle import Handle
 from basic import Basic
 from blockmonitor import BlockMgr
+from accessmgr import AccessMgr
 
 urls = (
     '/wx', 'Handle',
 )
 
-def action(arg):
-
-    while(True):
-        time.sleep(1)
-        print  'the thread name is:%s\r' % threading.currentThread().getName()
 
 
 def createMenu():
@@ -57,18 +53,17 @@ def createMenu():
           ]
     }
     """
-    accessToken = Basic().get_access_token()
-    #myMenu.delete(accessToken)
-    myMenu.create(postJson, accessToken)
+    accessToken = AccessMgr().Instance().getToken()
+   # myMenu.delete(accessToken)
+   # myMenu.create(postJson, accessToken)
 
 
 if __name__ == '__main__':
 
     createMenu()
 
-    t =threading.Thread(target=action,args=(1,))
-    t.setDaemon(True)#设置线程为后台线程
-    t.start()
-    BlockMgr().Instance().Start()
+
+    #BlockMgr().Instance().Start()
+    #BlockMgr().Instance().sendTransertMsg("test","wxid_7tshttdpffaa11","wxid_7tshttdpffaa11","200")
     app = web.application(urls, globals())
     app.run()

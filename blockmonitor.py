@@ -6,7 +6,9 @@ import time
 import requests
 import json
 
+from accessmgr import AccessMgr
 from config import Config  
+from logger import Logger
 
 class BlockInfo(object):
     def __init__(self):
@@ -61,26 +63,26 @@ class BlockMgr(object):
        
         block = BlockInfo()        
         if("transactions" in blockJson):
-              print '-----------------'
-              print 'in transations'
+              Logger().Log('-----------------')
+              Logger().Log('in transations')
               for trx in blockJson["transactions"]:
                   trxObj =  self.parseTransaction(trx)
                   block.addTrx(trxObj)
         else:
-            print 'not exsit transaction'
+            Logger().Log('not exsit transaction')
         return block
 
     def parseTransaction(self,trxJson):
         trx = Transaction()
         if("trx" in trxJson):
-           print '------------------'
-           print 'trx'
+           Logger().Log('------------------')
+           Logger().Log('trx')
            if("transaction" in trxJson["trx"]):
-              print '----------------'
-              print 'in transaction'
+              Logger().Log('----------------')
+              Logger().Log('in transaction')
               if("actions" in trxJson["trx"]["transaction"]):
-                  print '-------------'
-                  print 'actions'
+                  Logger().Log('-------------')
+                  Logger().Log('actions')
                   for actionJson in trxJson["trx"]["transaction"]["actions"] :
                          act =  self.parseAction(actionJson)
                          trx.addAction(act)
@@ -90,9 +92,6 @@ class BlockMgr(object):
     
     
     def parseAction(self,actionJson):
-        print actionJson["account"]
-        print actionJson["name"]
-        print actionJson["data"]
         action = Action(actionJson["account"],actionJson["name"],actionJson["data"])
         return action;
 
@@ -105,17 +104,39 @@ class BlockMgr(object):
              r = requests.post(url,data =json.dumps({"block_num_or_id":blockid}),headers = headers);
              if( r.status_code == 200):
                  js = json.loads(r.text)
-                 print '-------------------------'
+                 Logger().Log('-------------------------')
                  #print r.text
                  return self.parseBlock(js)
              else:
                  return None
         except:
-             print 'request error'
+             Logger().Log('request error')
 
     
-    def sendMsg(self):
+    def sendMsg(self,touser,content):
+
+        token = AccessMgr().Instance().getToken()
         
+        if not token:
+
+             headers = {'content-type': "application/json"}
+             postUrl = ("https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=%s" %(token))
+             r = requests.post(postUrl,data =json.dumps({"touser":touser,"msgtype":"text","text":{"content":content}}),headers = headers);
+             
+             if( r.status_code == 200):
+                js = json.loads(r.text)
+    
+    def sendTransertMsg(self,first,auser,buser,balance):
+       token = AccessMgr().Instance().getToken()
+       if not token:
+          headers = {'content-type': "application/json"}
+          postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
+          r = requests.post(postUrl,data =json.dumps({"touser":buser,"template_id":"pQ39ZTHf0Vz2rEk-WPrID6x59LG1bN558NJMWEpGO7U","data":{"first":first,"auser":auser,"buser":buser,"balance":balance}}),headers = headers);
+
+          if( r.status_code == 200):
+             js = json.loads(r.text)
+             
+
     def getInfo(self):
 
         headers = {'content-type': "application/json"}
@@ -127,12 +148,12 @@ class BlockMgr(object):
        	    js = json.loads(r.text)
 
             if("head_block_num" in js): 
-               print js['head_block_num']
+               Logger().Log(js['head_block_num'])
                return js['head_block_num'];
             else:
-               print 'not exsit key'
+               Logger().Log('not exsit key')
                return -1
         else:
-            print r.text
+            Logger().Log(r.text)
 
       
