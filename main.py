@@ -54,6 +54,7 @@ def createMenu():
     }
     """
     accessToken = AccessMgr().Instance().getToken()
+    print accessToken
    # myMenu.delete(accessToken)
    # myMenu.create(postJson, accessToken)
 
@@ -63,7 +64,7 @@ if __name__ == '__main__':
     createMenu()
 
 
-    #BlockMgr().Instance().Start()
-    #BlockMgr().Instance().sendTransertMsg("test","wxid_7tshttdpffaa11","wxid_7tshttdpffaa11","200")
+    BlockMgr().Instance().Start()
+    BlockMgr().Instance().sendTransertMsg("test","oMywO0033f8U-P7kvBvfxbEOE7g8","oMywO0033f8U-P7kvBvfxbEOE7g8","200")
     app = web.application(urls, globals())
     app.run()

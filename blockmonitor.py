@@ -117,22 +117,25 @@ class BlockMgr(object):
 
         token = AccessMgr().Instance().getToken()
         
-        if not token:
+        if not token is None:
 
              headers = {'content-type': "application/json"}
              postUrl = ("https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=%s" %(token))
              r = requests.post(postUrl,data =json.dumps({"touser":touser,"msgtype":"text","text":{"content":content}}),headers = headers);
-             
              if( r.status_code == 200):
                 js = json.loads(r.text)
     
     def sendTransertMsg(self,first,auser,buser,balance):
+       
        token = AccessMgr().Instance().getToken()
-       if not token:
+       print token
+       if not token is None:
+          
           headers = {'content-type': "application/json"}
           postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
-          r = requests.post(postUrl,data =json.dumps({"touser":buser,"template_id":"pQ39ZTHf0Vz2rEk-WPrID6x59LG1bN558NJMWEpGO7U","data":{"first":first,"auser":auser,"buser":buser,"balance":balance}}),headers = headers);
 
+          r = requests.post(postUrl,data =json.dumps({"touser":buser,"template_id":"2yRo-UaxivRkKc3TzWQLRdb73lcmbpakquP9_QKZy8s",
+          "data":{"first":{"value":first},"auser":{"value":auser},"buser":{"value":buser},"balance":{"value":balance}}}),headers = headers);
           if( r.status_code == 200):
              js = json.loads(r.text)
              

@@ -39,6 +39,8 @@ class Handle(object):
             if isinstance(recMsg, receive.Msg):
                 toUser = recMsg.FromUserName
                 fromUser = recMsg.ToUserName
+                event = recMsg.Event
+                 
                 if recMsg.MsgType == 'text':
                     content = "I love EOS"
                     replyMsg = reply.TextMsg(toUser, fromUser, content)
@@ -46,6 +48,10 @@ class Handle(object):
                 if recMsg.MsgType == 'image':
                     mediaId = recMsg.MediaId
                     replyMsg = reply.ImageMsg(toUser, fromUser, mediaId)
+                    return replyMsg.send()
+                if recMsg.MsgType == 'event':
+                    event = recMsg.Event
+                    replyMsg = reply.EventMsg(toUser,fromUser,event)
                     return replyMsg.send()
                 else:
                     return reply.Msg().send()
