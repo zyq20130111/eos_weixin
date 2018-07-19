@@ -32,11 +32,13 @@ class Text(object):
    TEXT27 = "parseBlock"
    TEXT28 = "parseTransaction"
    TEXT29 = "parseAction"
-
-
-
-
-
+   TEXT30 = "intsert access_tbl error" 
+   TEXT31 = "insert sucess"
+   TEXT32 = "收到消息%s"
+   TEXT33 = "收到事件%s"
+   TEXT34 = "get account"
+   TEXT35 = "subscribe"
+   TEXT36 = "bindEosAccount"
 
 
 

@@ -1,4 +1,5 @@
 class Config(object):
+   #HTTP_URL  = "http://127.0.0.1:8888/v1/chain/"
    HTTP_URL  = "http://52.68.55.138:8888/v1/chain/"
    DB_SERVER = "localhost"
    DB_USER = "root"

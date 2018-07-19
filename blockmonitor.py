@@ -55,7 +55,7 @@ class BlockMgr(object):
 
     def Start(self):
 
-         self.block_num_id = 4000000     
+         self.block_num_id = 1000000     
          t =threading.Thread(target=self.threadFun,args=(1,))
          t.setDaemon(True)#设置线程为后台线程
          t.start()
@@ -123,7 +123,7 @@ class BlockMgr(object):
 
     def getBlockInfo(self,blockid):
         
-        Logger().Log(Text.TEXT10 % (self.block_num_id))
+        Logger().Log(Text.TEXT10 % (blockid))
         headers = {'content-type': "application/json"}
         url = Config.HTTP_URL + "get_block"
         try:
@@ -219,7 +219,7 @@ class BlockMgr(object):
 	    if(r.status_code == 200):
 
        	          js = json.loads(r.text)
-
+                  
                   if("head_block_num" in js): 
                      Logger().Log(js['head_block_num'])
                      return js['head_block_num']

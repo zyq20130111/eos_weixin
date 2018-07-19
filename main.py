@@ -11,6 +11,8 @@ from basic import Basic
 from blockmonitor import BlockMgr
 from accessmgr import AccessMgr
 from accountmgr import AccountMgr
+from logger import Logger
+import sys
 
 urls = (
     '/wx', 'Handle',
@@ -55,15 +57,17 @@ def createMenu():
     }
     """
     accessToken = AccessMgr().Instance().getToken()
-    print accessToken
+    print  "accesstoken", accessToken
    # myMenu.delete(accessToken)
    # myMenu.create(postJson, accessToken)
 
 
 if __name__ == '__main__':
 
+    #reload(sys)
+    #sys.setdefaultencoding("ascii")
     createMenu()
-
+    Logger().Init()
     AccountMgr().Instance().Init()
     BlockMgr().Instance().Start()
     app = web.application(urls, globals())

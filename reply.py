@@ -50,15 +50,16 @@ class TextMsg(Msg):
         return self.sendMsg()
 
     def getaccount(self,account):
-       
+
+       Logger().Log(Text.TEXT34)       
        af =  BlockMgr().Instance().getAccount(account) 
        if (not af is  None):
-          print "bbbb" 
+    
           balance = af["core_liquid_balance"]
           print balance
           if (balance  is None):
              balance = Text.TEXT25
-          print "cccc"
+          
           content =  "余额为{0}".format(balance)  
           print content     
           self.__dict['Content'] = content 
@@ -72,6 +73,7 @@ class TextMsg(Msg):
 
     def bindEosAccount(self,account):
        
+       Logger().Log(Text.TEXT36)       
        af =  BlockMgr().Instance().getAccount(account) 
        if (not af is  None):
 
@@ -123,7 +125,7 @@ class EventMsg(Msg):
         
         if(self.__dict['Event'] == 'subscribe'): 
        	   
-           Logger().Print('subscribe')
+           Logger().Log(Text.TEXT35)
 
            self.__dict['Content'] = Text.TEXT26
            XmlForm = """

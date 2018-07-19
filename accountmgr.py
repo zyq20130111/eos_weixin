@@ -57,7 +57,7 @@ class AccountMgr(object):
                   self.eosaccounts[row[2]].append(account)
 
         except:
-            Logger().Log(Text.TEXT3)
+            Logger().Error(Text.TEXT3)
 
     def getWeiXinId(self,eosname):
 
@@ -100,7 +100,7 @@ class AccountMgr(object):
               db.close()
               Logger().Log(Text.TEXT5)
          except:
-              Logger().Log(Text.TEXT4)
+              Logger().Error(Text.TEXT4)
        
    
     def delAccount(self,name):
@@ -134,7 +134,7 @@ class AccountMgr(object):
             db.close()
 
         except:
-            Logger().Log(Text.TEXT7)
+            Logger().Error(Text.TEXT7)
       
        
 
