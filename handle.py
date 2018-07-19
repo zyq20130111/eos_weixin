@@ -39,10 +39,9 @@ class Handle(object):
             if isinstance(recMsg, receive.Msg):
                 toUser = recMsg.FromUserName
                 fromUser = recMsg.ToUserName
-                event = recMsg.Event
                  
                 if recMsg.MsgType == 'text':
-                    content = "I love EOS"
+                    content = recMsg.Content
                     replyMsg = reply.TextMsg(toUser, fromUser, content)
                     return replyMsg.send()
                 if recMsg.MsgType == 'image':

@@ -6,4 +6,6 @@ class Config(object):
    DB_NAME = "eosdb" 
    APP_ID  = "wx121e16e32b9d1376"
    APP_SECRET = "5d7faa840d5b702c40cbee4ffb451eb6"
-   APP_TOKEN = "galaxy" 
+   APP_TOKEN = "galaxy"
+   EOSCOUNTINWEIXIN = 1
+   WEIXINCOUNTINEOS = 1 

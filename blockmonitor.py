@@ -92,7 +92,33 @@ class BlockMgr(object):
     
     
     def parseAction(self,actionJson):
+
         action = Action(actionJson["account"],actionJson["name"],actionJson["data"])
+
+        if(action.account == "eosio.token" and action.name == "transfer"):
+
+            toaccount = action.data["to"]
+            frmaccount = action.data["from"]
+            quantity = action.data["quantity"]
+
+            toac = AccountMgr().Instance().getWeiXinId(toaccount)
+            frmac = AccountMgr().Instance().getWeiXinId(frmaccount)
+            
+            if(not toac  is None):
+                 slef.sendTransertMsg("转帐提示",toac,frmaccount,toaccount,quantity)
+
+            if(not frmac is None):
+                 self.sendTransertMsg("转帐提示",frmac,frmaccount,toaccount,quantity)
+
+        elif(action.account == "eosio" and action.name == "voteproducer"):
+            
+            voter = action.data["voter"]           
+            for pb in action.data["producers"]:
+
+                 pbwx = AccountMgr().Instance().getWeiXinId(pb) 
+                 if(not pbwx is None):
+                    self.sendVoteMsg(pbwx,voter,pb)
+ 
         return action;
 
     def getBlockInfo(self,blockid):
@@ -111,6 +137,24 @@ class BlockMgr(object):
                  return None
         except:
              Logger().Log('request error')
+             return None
+
+    def getAccount(self,account):
+
+        headers = {'content-type': "application/json"}
+        url = Config.HTTP_URL + "get_account"
+        try:
+             r = requests.post(url,data =json.dumps({"account_name":account}),headers = headers);
+             print r.status_code
+             if( r.status_code == 200):
+                 js = json.loads(r.text)
+                 return js
+             else:
+                 return None
+        except:
+             Logger().Log('request error')
+             return None
+         
 
     
     def sendMsg(self,touser,content):
@@ -125,7 +169,7 @@ class BlockMgr(object):
              if( r.status_code == 200):
                 js = json.loads(r.text)
     
-    def sendTransertMsg(self,first,auser,buser,balance):
+    def sendTransertMsg(self,first,touser,auser,buser,balance):
        
        token = AccessMgr().Instance().getToken()
        print token
@@ -134,11 +178,24 @@ class BlockMgr(object):
           headers = {'content-type': "application/json"}
           postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
 
-          r = requests.post(postUrl,data =json.dumps({"touser":buser,"template_id":"2yRo-UaxivRkKc3TzWQLRdb73lcmbpakquP9_QKZy8s",
+          r = requests.post(postUrl,data =json.dumps({"touser":touser,"template_id":"2yRo-UaxivRkKc3TzWQLRdb73lcmbpakquP9_QKZy8s",
           "data":{"first":{"value":first},"auser":{"value":auser},"buser":{"value":buser},"balance":{"value":balance}}}),headers = headers);
           if( r.status_code == 200):
              js = json.loads(r.text)
-             
+     
+
+    def sendVoteMsg(self,pbwx,voter,pb):
+        
+       token = AccessMgr().Instance().getToken()
+       if not token is None:
+
+          headers = {'content-type': "application/json"}
+          postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
+
+          r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":"qneLnkPx_W455wNdltxhAiNTqRUnEcufRQxZUKVftQM",
+          "data":{"title":{"value":"投票提示"},"auser":{"value":voter},"buser":{"value":bp}}}),headers = headers);
+          if( r.status_code == 200):
+             js = json.loads(r.text)             
 
     def getInfo(self):
 

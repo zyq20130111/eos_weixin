@@ -38,6 +38,7 @@ class Msg(object):
         MsgId = xmlData.find('MsgId')
         if not MsgId is None:
            self.MsgId = MsgId.text
+        
    
 
 class TextMsg(Msg):

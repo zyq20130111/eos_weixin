@@ -10,6 +10,7 @@ from handle import Handle
 from basic import Basic
 from blockmonitor import BlockMgr
 from accessmgr import AccessMgr
+from accountmgr import AccountMgr
 
 urls = (
     '/wx', 'Handle',
@@ -63,8 +64,7 @@ if __name__ == '__main__':
 
     createMenu()
 
-
+    AccountMgr().Instance().Init()
     BlockMgr().Instance().Start()
-    BlockMgr().Instance().sendTransertMsg("test","oMywO0033f8U-P7kvBvfxbEOE7g8","oMywO0033f8U-P7kvBvfxbEOE7g8","200")
     app = web.application(urls, globals())
     app.run()
