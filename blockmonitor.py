@@ -63,8 +63,6 @@ class BlockMgr(object):
        
         block = BlockInfo()        
         if("transactions" in blockJson):
-              Logger().Log('-----------------')
-              Logger().Log('in transations')
               for trx in blockJson["transactions"]:
                   trxObj =  self.parseTransaction(trx)
                   block.addTrx(trxObj)
@@ -75,14 +73,8 @@ class BlockMgr(object):
     def parseTransaction(self,trxJson):
         trx = Transaction()
         if("trx" in trxJson):
-           Logger().Log('------------------')
-           Logger().Log('trx')
            if("transaction" in trxJson["trx"]):
-              Logger().Log('----------------')
-              Logger().Log('in transaction')
               if("actions" in trxJson["trx"]["transaction"]):
-                  Logger().Log('-------------')
-                  Logger().Log('actions')
                   for actionJson in trxJson["trx"]["transaction"]["actions"] :
                          act =  self.parseAction(actionJson)
                          trx.addAction(act)
@@ -105,10 +97,12 @@ class BlockMgr(object):
             frmac = AccountMgr().Instance().getWeiXinId(frmaccount)
             
             if(not toac  is None):
-                 slef.sendTransertMsg("转帐提示",toac,frmaccount,toaccount,quantity)
+                 for eos in toac:
+                     slef.sendTransertMsg("转帐提示",eos.name,frmaccount,toaccount,quantity)
 
             if(not frmac is None):
-                 self.sendTransertMsg("转帐提示",frmac,frmaccount,toaccount,quantity)
+                 for eos in frmac:
+                     self.sendTransertMsg("转帐提示",eos.name,frmaccount,toaccount,quantity)
 
         elif(action.account == "eosio" and action.name == "voteproducer"):
             
@@ -117,12 +111,14 @@ class BlockMgr(object):
 
                  pbwx = AccountMgr().Instance().getWeiXinId(pb) 
                  if(not pbwx is None):
-                    self.sendVoteMsg(pbwx,voter,pb)
+                    for eos in pbwx:
+                        self.sendVoteMsg(eos.name,voter,pb)
  
         return action;
 
     def getBlockInfo(self,blockid):
-
+        
+        Logger().Log(Text.TEXT10)
         headers = {'content-type': "application/json"}
         url = Config.HTTP_URL + "get_block"
         
@@ -130,17 +126,16 @@ class BlockMgr(object):
              r = requests.post(url,data =json.dumps({"block_num_or_id":blockid}),headers = headers);
              if( r.status_code == 200):
                  js = json.loads(r.text)
-                 Logger().Log('-------------------------')
-                 #print r.text
                  return self.parseBlock(js)
              else:
                  return None
         except:
-             Logger().Log('request error')
+             Logger().Log(Text.TEXT11)
              return None
 
     def getAccount(self,account):
 
+        Logger().Log(Text.TEXT12)
         headers = {'content-type': "application/json"}
         url = Config.HTTP_URL + "get_account"
         try:
@@ -152,68 +147,84 @@ class BlockMgr(object):
              else:
                  return None
         except:
-             Logger().Log('request error')
+             Logger().Log(Text.TEXT13)
              return None
          
 
     
     def sendMsg(self,touser,content):
-
+        
+        Logger().Log(Text.TEXT14)
         token = AccessMgr().Instance().getToken()
         
         if not token is None:
-
-             headers = {'content-type': "application/json"}
-             postUrl = ("https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=%s" %(token))
-             r = requests.post(postUrl,data =json.dumps({"touser":touser,"msgtype":"text","text":{"content":content}}),headers = headers);
-             if( r.status_code == 200):
-                js = json.loads(r.text)
+            try:
+                headers = {'content-type': "application/json"}
+                postUrl = ("https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=%s" %(token))
+                r = requests.post(postUrl,data =json.dumps({"touser":touser,"msgtype":"text","text":{"content":content}}),headers = headers);
+                if( r.status_code == 200):
+                    js = json.loads(r.text)
+            except:
+                Logger().Log(Text.TEXT15)
     
     def sendTransertMsg(self,first,touser,auser,buser,balance):
        
+       Logger().Log(Text.TEXT16)
        token = AccessMgr().Instance().getToken()
-       print token
        if not token is None:
-          
-          headers = {'content-type': "application/json"}
-          postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
+          try:
+             headers = {'content-type': "application/json"}
+             postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
 
-          r = requests.post(postUrl,data =json.dumps({"touser":touser,"template_id":"2yRo-UaxivRkKc3TzWQLRdb73lcmbpakquP9_QKZy8s",
-          "data":{"first":{"value":first},"auser":{"value":auser},"buser":{"value":buser},"balance":{"value":balance}}}),headers = headers);
-          if( r.status_code == 200):
-             js = json.loads(r.text)
+             r = requests.post(postUrl,data =json.dumps({"touser":touser,"template_id":"2yRo-UaxivRkKc3TzWQLRdb73lcmbpakquP9_QKZy8s",
+             "data":{"first":{"value":first},"auser":{"value":auser},"buser":{"value":buser},"balance":{"value":balance}}}),headers = headers);
+             
+             if( r.status_code == 200):
+                js = json.loads(r.text)
+          except:
+             Logger().Log(Text.TEXT17)
      
 
     def sendVoteMsg(self,pbwx,voter,pb):
-        
+       
+       Logger().Log(Text.TEXT18) 
        token = AccessMgr().Instance().getToken()
        if not token is None:
+          try:
+              headers = {'content-type': "application/json"}
+              postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
 
-          headers = {'content-type': "application/json"}
-          postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
-
-          r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":"qneLnkPx_W455wNdltxhAiNTqRUnEcufRQxZUKVftQM",
-          "data":{"title":{"value":"投票提示"},"auser":{"value":voter},"buser":{"value":bp}}}),headers = headers);
-          if( r.status_code == 200):
-             js = json.loads(r.text)             
+              r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":"qneLnkPx_W455wNdltxhAiNTqRUnEcufRQxZUKVftQM",
+              "data":{"title":{"value":"投票提示"},"auser":{"value":voter},"buser":{"value":bp}}}),headers = headers);
+              
+              if( r.status_code == 200):
+                   js = json.loads(r.text)  
+          except:
+              Logger().Log(Text.TEXT19)           
 
     def getInfo(self):
 
-        headers = {'content-type': "application/json"}
-        url = Config.HTTP_URL + "get_info"
-        r = requests.get(url)
+        Logger().Log(Text.TEXT20)
+        try:
 
-	if(r.status_code == 200):
+            headers = {'content-type': "application/json"}
+            url = Config.HTTP_URL + "get_info"
+            r = requests.get(url)
 
-       	    js = json.loads(r.text)
+	    if(r.status_code == 200):
 
-            if("head_block_num" in js): 
-               Logger().Log(js['head_block_num'])
-               return js['head_block_num'];
+       	          js = json.loads(r.text)
+
+                  if("head_block_num" in js): 
+                      Logger().Log(js['head_block_num'])
+                     return js['head_block_num'];
+                  else:
+                     Logger().Log('not exsit key')
+                     return -1
             else:
-               Logger().Log('not exsit key')
-               return -1
-        else:
-            Logger().Log(r.text)
+                 Logger().Log(r.text)
+        except:
+            Logger().Log(Text.TEXT21)
+          
 
       
