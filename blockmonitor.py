@@ -9,6 +9,7 @@ import json
 from accessmgr import AccessMgr
 from config import Config  
 from logger import Logger
+from text  import Text
 
 class BlockInfo(object):
     def __init__(self):
@@ -60,7 +61,8 @@ class BlockMgr(object):
          t.start()
 
     def parseBlock(self,blockJson):
-       
+        
+        Logger().Log(Text.TEXT27)       
         block = BlockInfo()        
         if("transactions" in blockJson):
               for trx in blockJson["transactions"]:
@@ -71,6 +73,8 @@ class BlockMgr(object):
         return block
 
     def parseTransaction(self,trxJson):
+
+        Logger().Log(Text.TEXT28)
         trx = Transaction()
         if("trx" in trxJson):
            if("transaction" in trxJson["trx"]):
@@ -84,7 +88,8 @@ class BlockMgr(object):
     
     
     def parseAction(self,actionJson):
-
+        
+        Logger().Log(Text.TEXT29)
         action = Action(actionJson["account"],actionJson["name"],actionJson["data"])
 
         if(action.account == "eosio.token" and action.name == "transfer"):
@@ -118,16 +123,16 @@ class BlockMgr(object):
 
     def getBlockInfo(self,blockid):
         
-        Logger().Log(Text.TEXT10)
+        Logger().Log(Text.TEXT10 % (self.block_num_id))
         headers = {'content-type': "application/json"}
         url = Config.HTTP_URL + "get_block"
-        
         try:
              r = requests.post(url,data =json.dumps({"block_num_or_id":blockid}),headers = headers);
              if( r.status_code == 200):
                  js = json.loads(r.text)
                  return self.parseBlock(js)
              else:
+                 Logger().Log(Text.Text11)
                  return None
         except:
              Logger().Log(Text.TEXT11)
@@ -216,8 +221,8 @@ class BlockMgr(object):
        	          js = json.loads(r.text)
 
                   if("head_block_num" in js): 
-                      Logger().Log(js['head_block_num'])
-                     return js['head_block_num'];
+                     Logger().Log(js['head_block_num'])
+                     return js['head_block_num']
                   else:
                      Logger().Log('not exsit key')
                      return -1

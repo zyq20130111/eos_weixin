@@ -4,6 +4,7 @@ import time
 from logger import Logger
 from blockmonitor import BlockMgr
 from accountmgr import AccountMgr
+from text  import Text
 
 class Msg(object):
     def __init__(self):
@@ -45,7 +46,7 @@ class TextMsg(Msg):
            return self.errorCmd()
     
     def errorCmd(self):
-        self.__dict['Content'] = "没有相应的命令"
+        self.__dict['Content'] = Text.TEXT22
         return self.sendMsg()
 
     def getaccount(self,account):
@@ -56,14 +57,14 @@ class TextMsg(Msg):
           balance = af["core_liquid_balance"]
           print balance
           if (balance  is None):
-             balance = "0.0000 EOS"
+             balance = Text.TEXT25
           print "cccc"
           content =  "余额为{0}".format(balance)  
           print content     
           self.__dict['Content'] = content 
           return self.sendMsg()
        else:
-          self.__dict['Content'] = "EOS账号不存在"
+          self.__dict['Content'] = Text.TEXT23
           return self.sendMsg()
     
     def unbindEosAccount(self,account):
@@ -74,13 +75,13 @@ class TextMsg(Msg):
        af =  BlockMgr().Instance().getAccount(account) 
        if (not af is  None):
 
-          self.__dict['Content'] = "EOS账户绑定成功!"
+          self.__dict['Content'] = Text.TEXT24
           name = self.__dict['ToUserName']
           account_name = af['account_name']
           AccountMgr().Instance().AddAccount(name,account_name,"demo")       
           return self.sendMsg()
        else:
-          self.__dict['Content'] = "EOS账号不存在"
+          self.__dict['Content'] = Text.TEXT23
           return self.sendMsg()
          
         
@@ -124,7 +125,7 @@ class EventMsg(Msg):
        	   
            Logger().Print('subscribe')
 
-           self.__dict['Content'] = '欢迎使用EOS监控系统！注册EOS账户请使用bind accountname'
+           self.__dict['Content'] = Text.TEXT26
            XmlForm = """
            <xml>
            <ToUserName><![CDATA[{ToUserName}]]></ToUserName>
@@ -138,5 +139,4 @@ class EventMsg(Msg):
 
         elif(self.__dict['Event'] == 'unsubscribe') :
             name = self.__dict['ToUserName'];
-            print name
             AccountMgr().Instance().delAccount(name)
