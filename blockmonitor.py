@@ -82,7 +82,8 @@ class BlockMgr(object):
               if("actions" in trxJson["trx"]["transaction"]):
                   for actionJson in trxJson["trx"]["transaction"]["actions"] :
                          act =  self.parseAction(actionJson)
-                         trx.addAction(act)
+                         if(not act is None):
+                            trx.addAction(act)
 
         return trx       
          
@@ -91,13 +92,16 @@ class BlockMgr(object):
     def parseAction(self,actionJson):
         
         Logger().Log(Text.TEXT29)
-        action = Action(actionJson["account"],actionJson["name"],actionJson["data"])
+        action = Action(actionJson.get("account"),actionJson.get("name"),actionJson.get("data"))
+        
+        if(action.data is None):
+            return None
 
         if(action.account == "eosio.token" and action.name == "transfer"):
 
-            toaccount = action.data["to"]
-            frmaccount = action.data["from"]
-            quantity = action.data["quantity"]
+            toaccount = action.data.get("to")
+            frmaccount = action.data.get("from")
+            quantity = action.data.get("quantity")
 
             toac = AccountMgr().Instance().getWeiXinId(toaccount)
             frmac = AccountMgr().Instance().getWeiXinId(frmaccount)
@@ -112,8 +116,8 @@ class BlockMgr(object):
 
         elif(action.account == "eosio" and action.name == "voteproducer"):
             
-            voter = action.data["voter"]           
-            for pb in action.data["producers"]:
+            voter = action.data.get("voter")           
+            for pb in action.data.get("producers"):
 
                  pbwx = AccountMgr().Instance().getWeiXinId(pb) 
                  if(not pbwx is None):

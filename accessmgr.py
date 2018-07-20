@@ -77,7 +77,7 @@ class AccessMgr(object):
                          cursor.execute(sql)
                          db.commit()
 
-                         Logger().Print(Text.TEXT31)
+                         Logger().Log(Text.TEXT31)
                          return urlResp['access_token']
                      else:
                          return None

@@ -68,7 +68,6 @@ class AccountMgr(object):
 
     def getAccountStatus(self,name,eos_name,demo):
          
-         account = EosAccount(name,eos_name,demo)
          if(not self.accounts.has_key(name)):
               self.accounts[name] = []
 
@@ -94,7 +93,9 @@ class AccountMgr(object):
     def AddAccount(self,name,eos_name,demo):
          
          Logger().Log(Text.TEXT8)
+  
          try:
+              account = EosAccount(name,eos_name,demo)
 
               db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
               cursor = db.cursor()
@@ -102,7 +103,7 @@ class AccountMgr(object):
               
               cursor.execute(sql)
               db.commit()
-               
+              
               self.accounts[name].append(account) 
               self.eosaccounts[eos_name].append(account)
               

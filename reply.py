@@ -50,17 +50,16 @@ class TextMsg(Msg):
         return self.sendMsg()
 
     def getaccount(self,account):
-
+       
        Logger().Log(Text.TEXT34)       
        af =  BlockMgr().Instance().getAccount(account) 
        if (not af is  None):
-    
-          balance = af["core_liquid_balance"]
-          print balance
+          
+          balance = af.get("core_liquid_balance")
           if (balance  is None):
              balance = Text.TEXT25
           
-          content =  "余额为{0}".format(balance)  
+          content =  "余额为{0:s}".format(balance)
           self.__dict['Content'] = content 
           return self.sendMsg()
        else:
