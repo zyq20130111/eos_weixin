@@ -34,15 +34,19 @@ class Text(object):
    TEXT29 = "parseAction"
    TEXT30 = "intsert access_tbl error" 
    TEXT31 = "insert sucess"
-   TEXT32 = "收到消息%s"
-   TEXT33 = "收到事件%s"
+   TEXT32 = "收到消息{0}"
+   TEXT33 = "收到事件{0}"
    TEXT34 = "get account"
    TEXT35 = "subscribe"
    TEXT36 = "bindEosAccount"
-
-
-
-
-
+   TEXT37 = "该微信注册EOS账户超过上限"
+   TEXT38 = "该EOS账户注册超过上限"
+   TEXT39 = "该微信已经注册该EOS账户"
+   TEXT40 = "有人为您投票了"
+   TEXT41 = "EOS超级节点投票"
+   TEXT42 = "{0}为{1}进行了投票"
+   TEXT43 = "您的账户最新交易信息"
+   TEXT44 = "EOS转账"
+   TEXT45 = "{0}向{1}进行了转帐"
 
 

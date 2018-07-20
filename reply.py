@@ -29,18 +29,18 @@ class TextMsg(Msg):
         <CreateTime>{CreateTime}</CreateTime>
         <MsgType><![CDATA[text]]></MsgType>
         <Content><![CDATA[{Content}]]></Content>
+
         </xml>
         """
         return XmlForm.format(**self.__dict)
     
     def send(self):
-        
         opts =  self.__dict['Content'].split() 
-        if (opts[0] == "bind"):
+        if (opts[0] == "bind" or opts[0] == "c1"):
            return self.bindEosAccount(opts[1])
         elif (opts[0]  == "unbind"):
            return self.unbindEosAccount(opts[1])
-        elif (opts[0] == "getaccount"):
+        elif (opts[0] == "getaccount" or opts[0] == "c2"):
             return self.getaccount(opts[1])
         else:
            return self.errorCmd()
@@ -61,7 +61,6 @@ class TextMsg(Msg):
              balance = Text.TEXT25
           
           content =  "余额为{0}".format(balance)  
-          print content     
           self.__dict['Content'] = content 
           return self.sendMsg()
        else:
@@ -80,8 +79,19 @@ class TextMsg(Msg):
           self.__dict['Content'] = Text.TEXT24
           name = self.__dict['ToUserName']
           account_name = af['account_name']
-          AccountMgr().Instance().AddAccount(name,account_name,"demo")       
+         
+          status = AccountMgr().Instance().getAccountStatus(name,account_name,"demo")
+          if(status == -1):
+              self.__dict['Content'] = Text.TEXT39
+          elif(status  == -2):
+              self.__dict['Content'] = Text.TEXT37
+          elif(status == -3):
+              self.__dict['Content'] = Text.TEXT38
+          elif(status == 0):
+              self.__dict['Content'] = Text.TEXT24
+              AccountMgr().Instance().AddAccount(name,account_name,"demo")       
           return self.sendMsg()
+       
        else:
           self.__dict['Content'] = Text.TEXT23
           return self.sendMsg()

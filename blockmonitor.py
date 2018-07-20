@@ -1,6 +1,7 @@
 #/usr/bin/python
 # -*- coding: UTF-8 -*-
 
+import datetime
 import threading
 import time
 import requests
@@ -55,7 +56,7 @@ class BlockMgr(object):
 
     def Start(self):
 
-         self.block_num_id = 1000000     
+         self.block_num_id = Config.START_BLOCK_NUM_ID     
          t =threading.Thread(target=self.threadFun,args=(1,))
          t.setDaemon(True)#设置线程为后台线程
          t.start()
@@ -103,11 +104,11 @@ class BlockMgr(object):
             
             if(not toac  is None):
                  for eos in toac:
-                     slef.sendTransertMsg("转帐提示",eos.name,frmaccount,toaccount,quantity)
+                     slef.sendTransertMsg(eos.name,time.time(),frmaccount,toaccount,quantity)
 
             if(not frmac is None):
                  for eos in frmac:
-                     self.sendTransertMsg("转帐提示",eos.name,frmaccount,toaccount,quantity)
+                     self.sendTransertMsg(eos.name,time.time(),frmaccount,toaccount,quantity)
 
         elif(action.account == "eosio" and action.name == "voteproducer"):
             
@@ -145,7 +146,6 @@ class BlockMgr(object):
         url = Config.HTTP_URL + "get_account"
         try:
              r = requests.post(url,data =json.dumps({"account_name":account}),headers = headers);
-             print r.status_code
              if( r.status_code == 200):
                  js = json.loads(r.text)
                  return js
@@ -172,8 +172,9 @@ class BlockMgr(object):
             except:
                 Logger().Log(Text.TEXT15)
     
-    def sendTransertMsg(self,first,touser,auser,buser,balance):
-       
+
+    def sendTransertMsg(self,pbwx,actionID,auser,buser,balance):
+
        Logger().Log(Text.TEXT16)
        token = AccessMgr().Instance().getToken()
        if not token is None:
@@ -181,32 +182,40 @@ class BlockMgr(object):
              headers = {'content-type': "application/json"}
              postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
 
-             r = requests.post(postUrl,data =json.dumps({"touser":touser,"template_id":"2yRo-UaxivRkKc3TzWQLRdb73lcmbpakquP9_QKZy8s",
-             "data":{"first":{"value":first},"auser":{"value":auser},"buser":{"value":buser},"balance":{"value":balance}}}),headers = headers);
-             
+             nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+             reMarket = Text.TEXT45.format(auser,buser)
+
+             r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.TRANSFERTEMPLATEID,
+             "data":{"first":{"value":Text.TEXT43},"keyword1":{"value":actionID},"keyword2":{"value":nowTime},
+             "keyword3":{"value":actionID},"keyword4":{"value":Text.TEXT44},"keyword5":{"value":balance},"remark":{"value":reMarket}}}),headers = headers);
+
              if( r.status_code == 200):
                 js = json.loads(r.text)
           except:
              Logger().Log(Text.TEXT17)
      
 
+
     def sendVoteMsg(self,pbwx,voter,pb):
-       
-       Logger().Log(Text.TEXT18) 
+
+       Logger().Log(Text.TEXT18)
        token = AccessMgr().Instance().getToken()
        if not token is None:
           try:
               headers = {'content-type': "application/json"}
               postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
-
-              r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":"qneLnkPx_W455wNdltxhAiNTqRUnEcufRQxZUKVftQM",
-              "data":{"title":{"value":"投票提示"},"auser":{"value":voter},"buser":{"value":bp}}}),headers = headers);
               
-              if( r.status_code == 200):
-                   js = json.loads(r.text)  
-          except:
-              Logger().Log(Text.TEXT19)           
+              nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+              remark = Text.TEXT42.format(voter,pb)
 
+              r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.VOTETEMPLATEID,
+              "data":{"first":{"value":Text.TEXT40},"keyword1":{"value":Text.TEXT41},"keyword2":{"value":nowTime},"remark":{"value":remark}}}),headers = headers);
+
+              if( r.status_code == 200):
+                   js = json.loads(r.text)
+          except:
+              Logger().Log(Text.TEXT19)
+       
     def getInfo(self):
 
         Logger().Log(Text.TEXT20)

@@ -66,38 +66,49 @@ class AccountMgr(object):
         else:
            return None 
 
+    def getAccountStatus(self,name,eos_name,demo):
+         
+         account = EosAccount(name,eos_name,demo)
+         if(not self.accounts.has_key(name)):
+              self.accounts[name] = []
+
+         for eos in self.accounts[name]:
+               if eos.eos_name == eos_name:
+                  Logger().Log(Text.TEXT39)
+                  return -1
+
+         if(len(self.accounts[name]) == Config.EOSCOUNTINWEIXIN):
+              Logger().Log(Text.TEXT1)
+              return -2
+
+         if(not self.eosaccounts.has_key(eos_name)):
+              self.eosaccounts[eos_name] = []
+
+         if(len(self.eosaccounts[eos_name]) == Config.WEIXINCOUNTINEOS):
+              Logger().Log(Text.TEXT2)
+              return -3
+
+
+         return 0
+        
     def AddAccount(self,name,eos_name,demo):
-       
-         Logger().Log(Text.Text8)
-         try:  
+         
+         Logger().Log(Text.TEXT8)
+         try:
+
               db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
               cursor = db.cursor()
               sql = "INSERT INTO weixin_tbl(name,eos_name, demo)VALUES ('%s','%s','%s')" %(name,eos_name,demo)
               
               cursor.execute(sql)
               db.commit()
-              account = EosAccount(name,eos_name,demo)
-              
-              if(not self.accounts.has_key(name)):
-                 self.accounts[name] = []
-              
-              if(len(self.accounts[name]) == Config.EOSCOUNTINWEIXIN):
-                 Logger().Log(Text.TEXT1)
-                 return
-              
-              self.accounts[name].append(account)
-
-              if(not self.eosaccounts.has_key(eos_name)):
-                 self.eosaccounts[eos_name] = []
-
-              if(len(eosaccounts[eos_name]) == Config.WEIXINCOUNTINEOS):
-                 Logger().Log(Text.TEXT2)
-                 return
-
+               
+              self.accounts[name].append(account) 
               self.eosaccounts[eos_name].append(account)
-
+              
               cursor.close()
               db.close()
+              
               Logger().Log(Text.TEXT5)
          except:
               Logger().Error(Text.TEXT4)
