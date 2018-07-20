@@ -60,7 +60,6 @@ class AccountMgr(object):
             Logger().Error(Text.TEXT3)
 
     def getWeiXinId(self,eosname):
-
         if(self.eosaccounts.has_key(eosname)):
            return self.eosaccounts[eosname]
         else:

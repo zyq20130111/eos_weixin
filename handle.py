@@ -36,20 +36,26 @@ class Handle(object):
     def POST(self):
         try:
             webData = web.data()
+
             Logger().Log(webData)  #后台打日志
             recMsg = receive.parse_xml(webData)
+
             if isinstance(recMsg, receive.Msg):
+
                 toUser = recMsg.FromUserName
                 fromUser = recMsg.ToUserName
+
                 if recMsg.MsgType == 'text':
                     Logger().Log(Text.TEXT32.format(recMsg.Content))
                     content = recMsg.Content
                     replyMsg = reply.TextMsg(toUser, fromUser, content)
                     return replyMsg.send()
+
                 if recMsg.MsgType == 'image':
                     mediaId = recMsg.MediaId
                     replyMsg = reply.ImageMsg(toUser, fromUser, mediaId)
                     return replyMsg.send()
+
                 if recMsg.MsgType == 'event':
                     Logger().Log(Text.TEXT33.format(recMsg.Event)) 
                     event = recMsg.Event

@@ -11,6 +11,7 @@ from accessmgr import AccessMgr
 from config import Config  
 from logger import Logger
 from text  import Text
+from accountmgr import AccountMgr
 
 class BlockInfo(object):
     def __init__(self):
@@ -50,9 +51,16 @@ class BlockMgr(object):
 
     def threadFun(self,arg):
        while(True):
-           self.block_num_id = self.block_num_id + 1
-           time.sleep(0.01)
-           self.getBlockInfo(self.block_num_id)
+
+           curId = self.getInfo()
+
+           if(self.block_num_id < curId):
+               
+               self.block_num_id = self.block_num_id + 1
+               time.sleep(0.01)
+               self.getBlockInfo(self.block_num_id)
+           else:
+              Logger().Log("start_block_id access curnumid:{0}".format(curId))
 
     def Start(self):
 
@@ -90,7 +98,6 @@ class BlockMgr(object):
     
     
     def parseAction(self,actionJson):
-        
         Logger().Log(Text.TEXT29)
         action = Action(actionJson.get("account"),actionJson.get("name"),actionJson.get("data"))
         
@@ -98,17 +105,17 @@ class BlockMgr(object):
             return None
 
         if(action.account == "eosio.token" and action.name == "transfer"):
-
+            
             toaccount = action.data.get("to")
             frmaccount = action.data.get("from")
             quantity = action.data.get("quantity")
-
+            
             toac = AccountMgr().Instance().getWeiXinId(toaccount)
             frmac = AccountMgr().Instance().getWeiXinId(frmaccount)
-            
+
             if(not toac  is None):
                  for eos in toac:
-                     slef.sendTransertMsg(eos.name,time.time(),frmaccount,toaccount,quantity)
+                     self.sendTransertMsg(eos.name,time.time(),frmaccount,toaccount,quantity)
 
             if(not frmac is None):
                  for eos in frmac:
@@ -188,7 +195,7 @@ class BlockMgr(object):
 
              nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
              reMarket = Text.TEXT45.format(auser,buser)
-
+             
              r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.TRANSFERTEMPLATEID,
              "data":{"first":{"value":Text.TEXT43},"keyword1":{"value":actionID},"keyword2":{"value":nowTime},
              "keyword3":{"value":actionID},"keyword4":{"value":Text.TEXT44},"keyword5":{"value":balance},"remark":{"value":reMarket}}}),headers = headers);
@@ -223,6 +230,7 @@ class BlockMgr(object):
     def getInfo(self):
 
         Logger().Log(Text.TEXT20)
+        
         try:
 
             headers = {'content-type': "application/json"}
@@ -234,15 +242,22 @@ class BlockMgr(object):
        	          js = json.loads(r.text)
                   
                   if("head_block_num" in js): 
+                     
                      Logger().Log(js['head_block_num'])
-                     return js['head_block_num']
+                     
+                     if "head_block_num" in js:
+                          return js['head_block_num']
+                     else:
+                          return -1
                   else:
                      Logger().Log('not exsit key')
                      return -1
             else:
                  Logger().Log(r.text)
+                 return -1
         except:
             Logger().Log(Text.TEXT21)
+            return -1
           
 
       

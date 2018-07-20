@@ -58,8 +58,58 @@ class TextMsg(Msg):
           balance = af.get("core_liquid_balance")
           if (balance  is None):
              balance = Text.TEXT25
+
+          ram_usage = af.get("ram_usage")
+          if(ram_usage is None):
+             ram_usage =0
+          ram_usage = format(float(ram_usage) / float(1024),'.2f')
+
+          ram_quota = af.get("ram_quota")
+          if(ram_quota is None):
+             ram_quota = 0
+
+          ram_quota = format(float(ram_quota) / float(1024),'.2f')
           
-          content =  "余额为{0:s}".format(balance)
+          #cpu_limit
+          cpu_limit_used = 0
+          cpu_limit_available = 0
+          cpu_limit_max = 0
+
+          cpu_limit = af.get("cpu_limit")
+          if(not cpu_limit is None):
+            
+             if(not  cpu_limit.get("used") is None):
+                 cpu_limit_used = cpu_limit.get("used")
+
+             if(not  cpu_limit.get("available") is None):
+                 cpu_limit_available = cpu_limit.get("available")
+
+             if(not  cpu_limit.get("max") is None):
+                 cpu_limit_max = cpu_limit.get("max")
+ 
+          #net_limit
+          net_limit_used = 0
+          net_limit_available = 0
+          net_limit_max = 0
+
+          net_limit = af.get("cpu_limit")
+          if(not net_limit is None):
+
+             if(not  net_limit.get("used") is None):
+                 net_limit_used = net_limit.get("used")
+                 net_limit_used = format(float(net_limit_used) / float(1024),'.2f')
+
+             if(not  net_limit.get("available") is None):
+                 net_limit_available = cpu_limit.get("available")
+                 net_limit_available = format(float(net_limit_available) / float(1024),'.2f')
+
+             if(not  net_limit.get("max") is None):
+                 net_limit_max = net_limit.get("max")          
+                 net_limit_max = format(float(net_limit_max) / float(1024),'.2f')
+
+
+
+          content =  Text.TEXT46.format(balance,ram_usage,ram_quota,cpu_limit_used,cpu_limit_available,cpu_limit_max,net_limit_used,net_limit_available,net_limit_max)
           self.__dict['Content'] = content 
           return self.sendMsg()
        else:
