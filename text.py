@@ -28,7 +28,7 @@ class Text(object):
    TEXT23 = 'EOS账号不存在'
    TEXT24 = "EOS账户绑定成功!"
    TEXT25 = "0.0000 EOS"
-   TEXT26 = "欢迎使用EOS监控系统！\n\r提醒功能:\n\r   账户转账提醒\n\r  投票提醒\n\r查询功能:\n\r  c1 xxx(绑定EOS账户xxx)\n\r  c2 xxx(查询账户xxx信息)\n\r  help帮助命令"
+   TEXT26 = "欢迎使用EOS监控系统！\n\r功能:\n\r  c1 xxx(绑定EOS账户xxx)\n\r  c2 xxx(查询账户xxx信息)\n\r  转账通知(需绑定EOS账号)\n\r投票通知(需绑定EOS账号)\n\r  help帮助命令"
    TEXT27 = "parseBlock"
    TEXT28 = "parseTransaction"
    TEXT29 = "parseAction"
