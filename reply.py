@@ -42,7 +42,7 @@ class TextMsg(Msg):
            return self.unbindEosAccount(opts[1])
         elif (opts[0].lower() == "getaccount" or opts[0] == "c2"):
             return self.getaccount(opts[1])
-        elif (opts[0].lower() == "help")
+        elif (opts[0].lower() == "help"):
             return self.helpCmd()
         else:
            return self.errorCmd()
