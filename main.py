@@ -66,8 +66,9 @@ if __name__ == '__main__':
 
     #reload(sys)
     #sys.setdefaultencoding("ascii")
-    createMenu()
+    #createMenu()
     Logger().Init()
+    createMenu()
     AccountMgr().Instance().Init()
     BlockMgr().Instance().Start()
     app = web.application(urls, globals())

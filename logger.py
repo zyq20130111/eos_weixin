@@ -42,4 +42,4 @@ class Logger(object):
         self.logger.error(msg)
 
     def Print(self,msg):
-        print msg
+        self.logger.debug(msg)

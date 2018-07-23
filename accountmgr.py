@@ -88,11 +88,27 @@ class AccountMgr(object):
 
 
          return 0
-        
+    
+    
+    def sql_inj(self,name):
+      
+       inj_str = "'|and|exec|insert|select|delete|update|count|*|%|chr|mid|master|truncate|char|declare|;|or|-|+|,|drop"
+       inj_stra = inj_str.split("|")
+      
+       for word in inj_stra:
+          if(word == name.lower()):
+             return True;
+
+       return False;
+
+    
     def AddAccount(self,name,eos_name,demo):
          
          Logger().Log(Text.TEXT8)
-  
+         if(self.sql_inj(name) or self.sql_inj(eos_name) or self.sql_inj(demo)):
+            Logger().Log("addaccount 非法的sql语句注入")
+            return
+
          try:
               account = EosAccount(name,eos_name,demo)
 
@@ -118,6 +134,10 @@ class AccountMgr(object):
        
         try:
             Logger().Log(Text.TEXT6)
+
+	    if(self.sql_inj(name)):
+               Logger().Error("delAccount 非法的SQL语句注入")
+               return 
 
             db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
             cursor = db.cursor()
