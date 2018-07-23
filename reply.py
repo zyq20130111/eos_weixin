@@ -36,15 +36,21 @@ class TextMsg(Msg):
     
     def send(self):
         opts =  self.__dict['Content'].split() 
-        if (opts[0] == "bind" or opts[0] == "c1"):
+        if (opts[0].lower() == "bind" or opts[0] == "c1"):
            return self.bindEosAccount(opts[1])
-        elif (opts[0]  == "unbind"):
+        elif (opts[0].lower()  == "unbind"):
            return self.unbindEosAccount(opts[1])
-        elif (opts[0] == "getaccount" or opts[0] == "c2"):
+        elif (opts[0].lower() == "getaccount" or opts[0] == "c2"):
             return self.getaccount(opts[1])
+        elif (opts[0].lower() == "help")
+            return self.helpCmd()
         else:
            return self.errorCmd()
     
+    def helpCmd(self):
+        self.__dict['Content'] = Text.TEXT26
+        return self.sendMsg()
+
     def errorCmd(self):
         self.__dict['Content'] = Text.TEXT22
         return self.sendMsg()
