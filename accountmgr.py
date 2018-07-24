@@ -48,7 +48,7 @@ class AccountMgr(object):
                   
                   if(not self.accounts.has_key(row[1])):
                      self.accounts[row[1]] = []
-                  
+                 
                   self.accounts[row[1]].append(account)
                                     
                   if(not self.eosaccounts.has_key(row[2])):
@@ -63,7 +63,14 @@ class AccountMgr(object):
         if(self.eosaccounts.has_key(eosname)):
            return self.eosaccounts[eosname]
         else:
-           return None 
+           return None
+
+    def getAccounts(self,name):
+        
+        if(self.accounts.has_key(name)):
+           return self.accounts[name]
+        else:
+           return None         
 
     def getAccountStatus(self,name,eos_name,demo):
          

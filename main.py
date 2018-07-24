@@ -28,28 +28,39 @@ def createMenu():
         "button":
         [
             {
-                "type": "click",
-                "name": "开发指引",
-                "key":  "mpGuide"
-            },
-            {
-                "name": "公众平台",
+                "name": "关于我们",
                 "sub_button":
                 [
                     {
                         "type": "view",
-                        "name": "更新公告",
-                        "url": "http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1418702138&token=&lang=zh_CN"
+                        "name": "官网",
+                        "url": "http://www.eosgalaxy.io"
                     },
                     {
-                        "type": "view",
-                        "name": "接口权限说明",
-                        "url": "http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1418702138&token=&lang=zh_CN"
+                       "type": "click",
+                       "name": "加入社区",
+                       "key":  "join"
+                    }
+                ]
+            },
+            {
+                "type": "view",
+                "name": "EOS投票",
+                "url":  "http://www.huoxing24.com/newsdetail/20180712195305691775.html"
+            },
+            {
+                "name": "账号查询",
+                "sub_button":
+                [
+                    {
+                        "type": "click",
+                        "name": "绑定EOS账号",
+                        "key": "bind"
                     },
                     {
-                        "type": "view",
-                        "name": "返回码说明",
-                        "url": "http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433747234&token=&lang=zh_CN"
+                        "type": "click",
+                        "name": "查询EOS账号",
+                        "key": "find"
                     }
                 ]
             }
@@ -58,15 +69,12 @@ def createMenu():
     """
     accessToken = AccessMgr().Instance().getToken()
     print  "accesstoken", accessToken
-   # myMenu.delete(accessToken)
-   # myMenu.create(postJson, accessToken)
+    myMenu.delete(accessToken)
+    myMenu.create(postJson, accessToken)
 
 
 if __name__ == '__main__':
 
-    #reload(sys)
-    #sys.setdefaultencoding("ascii")
-    #createMenu()
     Logger().Init()
     createMenu()
     AccountMgr().Instance().Init()

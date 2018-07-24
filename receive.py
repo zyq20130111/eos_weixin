@@ -56,3 +56,4 @@ class  EventMsg(Msg):
     def __init__(self,xmlData):
         Msg.__init__(self, xmlData)
         self.Event = xmlData.find("Event").text
+        self.EventKey = xmlData.find("EventKey").text

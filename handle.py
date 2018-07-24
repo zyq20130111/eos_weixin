@@ -59,7 +59,8 @@ class Handle(object):
                 if recMsg.MsgType == 'event':
                     Logger().Log(Text.TEXT33.format(recMsg.Event)) 
                     event = recMsg.Event
-                    replyMsg = reply.EventMsg(toUser,fromUser,event)
+                    eventkey = recMsg.EventKey
+                    replyMsg = reply.EventMsg(toUser,fromUser,event,eventkey)
                     return replyMsg.send()
                 else:
                     return reply.Msg().send()

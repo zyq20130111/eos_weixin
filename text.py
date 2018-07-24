@@ -28,7 +28,7 @@ class Text(object):
    TEXT23 = 'EOS账号不存在'
    TEXT24 = "EOS账户绑定成功!"
    TEXT25 = "0.0000 EOS"
-   TEXT26 = "欢迎使用EOS监控系统！\n\r功能:\n\r  c1 xxx(绑定EOS账户xxx)\n\r  c2 xxx(查询账户xxx信息)\n\r  转账通知(需绑定EOS账号)\n\r  投票通知(需绑定EOS账号)\n\r  help(帮助命令)"
+   TEXT26 = "欢迎使用EOS监控系统!"
    TEXT27 = "parseBlock"
    TEXT28 = "parseTransaction"
    TEXT29 = "parseAction"
@@ -49,4 +49,8 @@ class Text(object):
    TEXT44 = "EOS转账"
    TEXT45 = "{0}向{1}进行了转帐"
    TEXT46 = "余额:  {0}\n\rRAM: {1}KB/{2}KB\n\r\n\rCPU:      \r\n  Used:       {3}us\n\r Available:{4}us\n\r Max:         {5}us\n\r\n\rNET:      \r\n  Used:       {6}KB\n\r Available:{7}KB\n\r Max:         {8}KB"
-
+   TEXT47 = "bind"
+   TEXT48 = "使用bind xxx命令绑定账户"
+   TEXT49 = "你还没有绑定账号"
+   TEXT50 = ""
+   TEXT51 = "{0}账户信息\n\r________________\n\r"
