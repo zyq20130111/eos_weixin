@@ -59,6 +59,11 @@ class BlockMgr(object):
                self.block_num_id = self.block_num_id + 1
                time.sleep(0.01)
                self.getBlockInfo(self.block_num_id)
+
+               f = open('block.txt', 'w')
+               f.write(str(self.block_num_id) + " curnumid=" + str(curId))
+               f.flush()
+
            else:
               Logger().Log("start_block_id access curnumid:{0}".format(curId))
 

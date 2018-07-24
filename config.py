@@ -3,7 +3,7 @@ class Config(object):
    HTTP_URL  = "http://127.0.0.1:8888/v1/chain/"
    DB_SERVER = "localhost"
    DB_USER = "root"
-   DB_PWD  = "123"
+   DB_PWD  = "galaxy123456@"
    DB_NAME = "eosdb" 
    APP_ID  = "wx71b99bd9065e5981"
    APP_SECRET = "c3557548dbb6f35fea56e3c2453b35ab"
