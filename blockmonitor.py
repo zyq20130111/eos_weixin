@@ -220,7 +220,7 @@ class BlockMgr(object):
               nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
               remark = Text.TEXT42.format(voter,pb)
 
-              r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.VOTETEMPLATEID,
+              r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.VOTETEMPLATEID,"url":"http://dev.cryptolions.io/mainnet/#home",
               "data":{"first":{"value":Text.TEXT40},"keyword1":{"value":Text.TEXT41},"keyword2":{"value":nowTime},"remark":{"value":remark}}}),headers = headers);
 
               if( r.status_code == 200):

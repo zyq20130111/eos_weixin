@@ -74,7 +74,7 @@ class AccessMgr(object):
                               sql = "update  access_tbl set token='%s' , token_time=%d ,token_expire=%d where Id =%d" %(urlResp['access_token'],time.time(),urlResp['expires_in'],Id)
                               cursor.execute(sql)
                               db.commit()   
-                              Logger().Error("update access_tbl success")  
+                              Logger().Log("update access_tbl success")  
                               return urlResp['access_token'] 
                          else:
                               return None 

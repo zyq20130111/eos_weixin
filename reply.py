@@ -48,7 +48,7 @@ class TextMsg(Msg):
            return self.errorCmd()
     
     def helpCmd(self):
-        self.__dict['Content'] = Text.TEXT26
+        self.__dict['Content'] =  Text.TEXT26
         return self.sendMsg()
 
     def errorCmd(self):
