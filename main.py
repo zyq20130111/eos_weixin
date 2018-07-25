@@ -59,7 +59,7 @@ def createMenu():
                     },
                     {
                         "type": "click",
-                        "name": "绑定EOS账号",
+                        "name": "解绑EOS账号",
                         "key": "unbind"
                     },                    
                     {
