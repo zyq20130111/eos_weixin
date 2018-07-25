@@ -136,37 +136,39 @@ class AccountMgr(object):
          except:
               Logger().Error(Text.TEXT4)
        
-   
-    def delAccount(self,name):
+ 
+    def delAccount(self,name,account):
        
         try:
             Logger().Log(Text.TEXT6)
 
-	    if(self.sql_inj(name)):
+	    if(self.sql_inj(name) or self.sql_inj(account)):
                Logger().Error("delAccount 非法的SQL语句注入")
                return 
 
             db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
             cursor = db.cursor()
-            sql = "DELETE FROM  weixin_tbl where name ='%s'" %(name)
+            sql = "DELETE FROM  weixin_tbl where name ='%s' and eos_name = '%s'" %(name,account)
 
 	    cursor.execute(sql)
             db.commit()
 
-            #删除账户所对应的weixin号
+            #删除微信号队应的账号
+            i = 0
             for eos in self.accounts[name]:
-               
-               i = - 1
-               eos_name = eos.eos_name              
-               
-               for eos1  in self.eosaccounts[eos_name]:
+                            
+               if(eos.eos_name == account):
+                  self.accounts[name].pop(i)
+
+               i = i + 1
+
+            #删除账号所对应的微信号
+            i = 0
+            for eos1  in self.eosaccounts[account]:
                      
-                     i = i + 1 
-                     if(eos1.name == name):
-                          self.eosaccounts[eos_name].pop(i)   
-            
-            #删除微信号所对应的Eos账号
-            del self.accounts[name]
+                 if(eos1.name == name):
+                     self.eosaccounts[eos_name].pop(i)   
+                 i = i + 1
 
             cursor.close()
             db.close()
@@ -175,4 +177,39 @@ class AccountMgr(object):
             Logger().Error(Text.TEXT7)
       
        
+    def delWeiXin(self,name):
 
+        try:
+            Logger().Log(Text.TEXT54)
+
+            if(self.sql_inj(name)):
+               Logger().Error("delAccount 非法的SQL语句注入")
+               return
+
+            db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
+            cursor = db.cursor()
+            sql = "DELETE FROM  weixin_tbl where name ='%s'" %(name)
+
+            cursor.execute(sql)
+            db.commit()
+
+            #删除账户所对应的weixin号
+            for eos in self.accounts[name]:
+
+               i = - 1
+               eos_name = eos.eos_name
+
+               for eos1  in self.eosaccounts[eos_name]:
+
+                     i = i + 1
+                     if(eos1.name == name):
+                          self.eosaccounts[eos_name].pop(i)
+
+            #删除微信号所对应的Eos账号
+            del self.accounts[name]
+
+            cursor.close()
+            db.close()
+
+        except:
+            Logger().Error(Text.TEXT55)

@@ -28,7 +28,7 @@ class Text(object):
    TEXT23 = 'EOS账号不存在'
    TEXT24 = "EOS账户绑定成功!"
    TEXT25 = "0.0000 EOS"
-   TEXT26 = "欢迎使用EOS监控系统!"
+   TEXT26 = "欢迎来到EOS Galaxy，EOS GALAXY是由火星财经发起的节点竞选者，我们看好EOS的发展未来， 愿意追随BM愿景，建设恢弘的区块链社会新时代！加入我们吧，一起共同为EOS打Call！\r\n\r\n回复“bind 你的EOS账户”, 将可以绑定你的EOS账户，系统将实时通知你的账户变动信息，如转账，投票等，让你不再错过任何重要信息！另外你还可以通过查询账户获得你账户的最新信息如余额，RAM，CPU，带宽等，让你一目了然！"
    TEXT27 = "parseBlock"
    TEXT28 = "parseTransaction"
    TEXT29 = "parseAction"
@@ -54,3 +54,9 @@ class Text(object):
    TEXT49 = "你还没有绑定账号"
    TEXT50 = ""
    TEXT51 = "{0}账户信息\n\r________________\n\r"
+   TEXT52 = "unbindEosAccount"
+   TEXT53 = "{0}解除了绑定"
+   TEXT54 = "del weixin"
+   TEXT55 = "del weixin fail"
+   TEXT56 = "unsubscribe"
+   TEXT57 = "注销了微信号"

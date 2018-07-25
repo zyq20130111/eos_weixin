@@ -55,7 +55,23 @@ class TextMsg(Msg):
         return self.sendMsg()
     
     def unbindEosAccount(self,account):
-        AccountMgr().Instance().delAccount(iname)       
+       
+       Logger().Log(Text.TEXT52)
+
+       af =  BlockMgr().Instance().getAccount(account)
+       if (not af is  None):
+
+          name = self.__dict['ToUserName']
+          status = AccountMgr().Instance().getAccountStatus(name,account_name,"demo")
+          
+          if(status == -1):
+              self.__dict['Content'] = Text.TEXT53.format(account)
+              AccountMgr().Instance().delAccount(name,account)
+          return self.sendMsg()
+
+       else:
+          self.__dict['Content'] = Text.TEXT23
+          return self.sendMsg()                
 
     def bindEosAccount(self,account):
        
@@ -157,6 +173,16 @@ class EventMsg(Msg):
 
            self.__dict['Content'] = Text.TEXT26
            return self.sendMsg()
+
+        elif(self.event == "unsubscribe"):
+
+           Logger().Log(Text.TEXT56)
+
+           weixin = self.__dict['ToUserName']
+           AccountMgr().Instance().delWeiXin(weixin)
+                      
+           self.__dict['Content'] = Text.TEXT57
+           return self.sendMsg()          
 
         elif((self.event == "CLICK") and (self.eventkey  == "bind")):
            self.__dict['Content'] = Text.TEXT48
