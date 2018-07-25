@@ -167,7 +167,7 @@ class AccountMgr(object):
             for eos1  in self.eosaccounts[account]:
                      
                  if(eos1.name == name):
-                     self.eosaccounts[eos_name].pop(i)   
+                     self.eosaccounts[account].pop(i)   
                  i = i + 1
 
             cursor.close()

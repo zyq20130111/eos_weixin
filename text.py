@@ -60,3 +60,5 @@ class Text(object):
    TEXT55 = "del weixin fail"
    TEXT56 = "unsubscribe"
    TEXT57 = "注销了微信号"
+   TEXT58 = "此微信号没有绑定该账号"
+   TEXT59 = "使用unbind xxx解除绑定"

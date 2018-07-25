@@ -62,11 +62,14 @@ class TextMsg(Msg):
        if (not af is  None):
 
           name = self.__dict['ToUserName']
-          status = AccountMgr().Instance().getAccountStatus(name,account_name,"demo")
+          status = AccountMgr().Instance().getAccountStatus(name,account,"demo")
           
           if(status == -1):
               self.__dict['Content'] = Text.TEXT53.format(account)
               AccountMgr().Instance().delAccount(name,account)
+          else:
+              self.__dict['Content'] = Text.TEXT58            
+ 
           return self.sendMsg()
 
        else:
@@ -186,6 +189,9 @@ class EventMsg(Msg):
 
         elif((self.event == "CLICK") and (self.eventkey  == "bind")):
            self.__dict['Content'] = Text.TEXT48
+           return self.sendMsg()
+        elif((self.event == "CLICK") and (self.eventkey  == "unbind")):
+           self.__dict['Content'] = Text.TEXT59
            return self.sendMsg()
         elif((self.event == "CLICK") and (self.eventkey == "join")):
            self.__dict['MedialID'] = Config.MEDIAID
