@@ -212,9 +212,26 @@ class BlockMgr(object):
              Logger().Log(Text.TEXT17)
      
 
+    def getAccountDelegate(self,vote):
+         
+          net_weight = 0
+          cpu_weight = 0 
+          
+          acc = self.getAccount(vote)
+          if(acc is None):
+              return
+          
+          if("net_weight" in acc):
+              net_weight = acc["net_weight"]
+          
+          if("cpu_weight" in acc):
+              cpu_weight =  acc["cpu_weight"]
+           
+
+          return  format(float(net_weight + cpu_weight) / float(10000),'.4f')                 
+
 
     def sendVoteMsg(self,pbwx,voter,pb):
-
        Logger().Log(Text.TEXT18)
        token = AccessMgr().Instance().getToken()
        if not token is None:
@@ -222,9 +239,11 @@ class BlockMgr(object):
               headers = {'content-type': "application/json"}
               postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
               
+              accountNum = self.getAccountDelegate(voter)
+              print accountNum
               nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-              remark = Text.TEXT42.format(voter,pb)
-
+              remark = Text.TEXT42.format(voter,pb,accountNum)
+              print remark
               r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.VOTETEMPLATEID,"url":"http://dev.cryptolions.io/mainnet/#home",
               "data":{"first":{"value":Text.TEXT40},"keyword1":{"value":Text.TEXT41},"keyword2":{"value":nowTime},"remark":{"value":remark}}}),headers = headers);
 
