@@ -91,10 +91,15 @@ class BlockMgr(object):
         Logger().Log(Text.TEXT28)
         trx = Transaction()
         if("trx" in trxJson):
+
+           trxid = "00000000"
+           if("id" in trxJson["trx"]):
+             trxid = trxJson["trx"]["id"]
+
            if("transaction" in trxJson["trx"]):
               if("actions" in trxJson["trx"]["transaction"]):
                   for actionJson in trxJson["trx"]["transaction"]["actions"] :
-                         act =  self.parseAction(actionJson)
+                         act =  self.parseAction(actionJson,trxid)
                          if(not act is None):
                             trx.addAction(act)
 
@@ -102,7 +107,7 @@ class BlockMgr(object):
          
     
     
-    def parseAction(self,actionJson):
+    def parseAction(self,actionJson,trxid):
         #print actionJson
         Logger().Log(Text.TEXT29)
         action = Action(actionJson.get("account"),actionJson.get("name"),actionJson.get("data"))
@@ -121,11 +126,11 @@ class BlockMgr(object):
 
             if(not toac  is None):
                  for eos in toac:
-                     self.sendTransertMsg(eos.name,time.time(),frmaccount,toaccount,quantity)
+                     self.sendTransertMsg(trxid,eos.name,time.time(),frmaccount,toaccount,quantity)
 
             if(not frmac is None):
                  for eos in frmac:
-                     self.sendTransertMsg(eos.name,time.time(),frmaccount,toaccount,quantity)
+                     self.sendTransertMsg(trxid,eos.name,time.time(),frmaccount,toaccount,quantity)
 
         elif(action.account == "eosio" and action.name == "voteproducer"):
             
@@ -135,7 +140,7 @@ class BlockMgr(object):
                  pbwx = AccountMgr().Instance().getWeiXinId(pb) 
                  if(not pbwx is None):
                     for eos in pbwx:
-                        self.sendVoteMsg(eos.name,voter,pb)
+                        self.sendVoteMsg(trxid,eos.name,voter,pb)
  
         return action;
 
@@ -190,7 +195,7 @@ class BlockMgr(object):
                 Logger().Log(Text.TEXT15)
     
 
-    def sendTransertMsg(self,pbwx,actionID,auser,buser,balance):
+    def sendTransertMsg(self,trxid,pbwx,actionID,auser,buser,balance):
 
        Logger().Log(Text.TEXT16)
        token = AccessMgr().Instance().getToken()
@@ -199,10 +204,11 @@ class BlockMgr(object):
              headers = {'content-type': "application/json"}
              postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
 
+             url = Text.TEXT60.format(trxid)
              nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
              reMarket = Text.TEXT45.format(auser,buser)
              
-             r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.TRANSFERTEMPLATEID,
+             r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.TRANSFERTEMPLATEID,"url":url,
              "data":{"first":{"value":Text.TEXT43},"keyword1":{"value":actionID},"keyword2":{"value":nowTime},
              "keyword3":{"value":actionID},"keyword4":{"value":Text.TEXT44},"keyword5":{"value":balance},"remark":{"value":reMarket}}}),headers = headers);
 
@@ -231,7 +237,7 @@ class BlockMgr(object):
           return  format(float(net_weight + cpu_weight) / float(10000),'.4f')                 
 
 
-    def sendVoteMsg(self,pbwx,voter,pb):
+    def sendVoteMsg(self,trxid,pbwx,voter,pb):
        Logger().Log(Text.TEXT18)
        token = AccessMgr().Instance().getToken()
        if not token is None:
@@ -242,7 +248,9 @@ class BlockMgr(object):
               accountNum = self.getAccountDelegate(voter)
               nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
               remark = Text.TEXT42.format(voter,pb,accountNum)
-              r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.VOTETEMPLATEID,"url":"www.myeoskit.com",
+              url = Text.TEXT60.format(trxid)
+
+              r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.VOTETEMPLATEID,"url":url,
               "data":{"first":{"value":Text.TEXT40},"keyword1":{"value":Text.TEXT41},"keyword2":{"value":nowTime},"remark":{"value":remark}}}),headers = headers);
 
               if( r.status_code == 200):

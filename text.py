@@ -62,3 +62,4 @@ class Text(object):
    TEXT57 = "注销了微信号"
    TEXT58 = "此微信号没有绑定该账号"
    TEXT59 = "使用unbind xxx解除绑定"
+   TEXT60 = "https://www.myeoskit.com/#/tx/{0}"
