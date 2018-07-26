@@ -235,7 +235,7 @@ class BlockMgr(object):
               cpu_weight =  acc["cpu_weight"]
            
 
-          return  format(float(net_weight + cpu_weight) / float(10000),'.4f')                 
+          return  (long(net_weight) + long(cpu_weight)) / 10000                 
 
 
     def sendVoteMsg(self,trxid,pbwx,voter,pb):
