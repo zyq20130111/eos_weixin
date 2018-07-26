@@ -197,6 +197,7 @@ class BlockMgr(object):
 
     def sendTransertMsg(self,trxid,pbwx,actionID,auser,buser,balance):
 
+       
        Logger().Log(Text.TEXT16)
        token = AccessMgr().Instance().getToken()
        if not token is None:
@@ -238,6 +239,7 @@ class BlockMgr(object):
 
 
     def sendVoteMsg(self,trxid,pbwx,voter,pb):
+       
        Logger().Log(Text.TEXT18)
        token = AccessMgr().Instance().getToken()
        if not token is None:
@@ -248,11 +250,11 @@ class BlockMgr(object):
               accountNum = self.getAccountDelegate(voter)
               nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
               remark = Text.TEXT42.format(voter,pb,accountNum)
+              
               url = Text.TEXT60.format(trxid)
-
               r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.VOTETEMPLATEID,"url":url,
               "data":{"first":{"value":Text.TEXT40},"keyword1":{"value":Text.TEXT41},"keyword2":{"value":nowTime},"remark":{"value":remark}}}),headers = headers);
-
+              
               if( r.status_code == 200):
                    js = json.loads(r.text)
           except:
