@@ -210,7 +210,7 @@ class BlockMgr(object):
           return
 
        print balanceSplt[0]
-       if(long(balanceSplt[0]) < transfer)
+       if(long(balanceSplt[0]) < transfer):
           Logger().Log(Text.TEXT68)
           return
         
