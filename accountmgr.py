@@ -12,6 +12,11 @@ class EosAccount(object):
         self.eos_name = eos_name;
 	self.demo = demo
 
+class EosRemind(object):
+    def __init__(self,name,transfer,vote):
+        self.name = name
+        self.transfer = transfer
+        self.vote = vote
   
 class AccountMgr(object):
 
@@ -36,12 +41,14 @@ class AccountMgr(object):
         Logger().Log("initAccounts")
         self.accounts = {}
         self.eosaccounts = {}
+        self.reminds = {}
 
         try:
              db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
 	     cursor = db.cursor()
 	     cursor.execute("SELECT * FROM weixin_tbl")
-
+            
+             #初始化weixin_tbl
              for row in cursor.fetchall():
 
                   account = EosAccount(row[1],row[2],row[3])
@@ -56,6 +63,17 @@ class AccountMgr(object):
 
                   self.eosaccounts[row[2]].append(account)
 
+             #初始化remind表
+             cursor.execute("SELECT * FROM remind_tbl"
+             for row in cursor.fetchall():
+
+                  remind = EosRemind(row[1],row[2],row[3]):
+                  if(not self.reminds.has_key(row[1])):
+                     self.accounts[row1] = remind
+ 
+             db.cursor.close()
+             db.close()
+            
         except:
             Logger().Error(Text.TEXT3)
 
@@ -69,6 +87,13 @@ class AccountMgr(object):
         
         if(self.accounts.has_key(name)):
            return self.accounts[name]
+        else:
+           return None
+
+    def getRemind(self,name):
+
+        if(self.reminds.has_key(name)):
+           return self.reminds[name]
         else:
            return None         
 
@@ -208,8 +233,40 @@ class AccountMgr(object):
             #删除微信号所对应的Eos账号
             del self.accounts[name]
 
+            #删除微信号所对应的设置            
+            sql = "DELETE FROM  remind_tbl where name ='%s'" %(name)
+            cursor.execute(sql)
+            db.commit()
+            del self.reminds[name]
+
             cursor.close()
             db.close()
 
         except:
             Logger().Error(Text.TEXT55)
+
+    def AddRemind(self,name,transfer,vote):
+
+         Logger().Log(Text.TEXT61)
+         if(self.sql_inj(name) or self.sql_inj(str(transfer)) or self.sql_inj(str(vote))):
+            Logger().Log("addremind 非法的sql语句注入")
+            return
+
+         try:
+              remind = EosRemind(name,transfer,vote)
+
+              db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
+              cursor = db.cursor()
+              sql = "INSERT INTO remind_tbl(name,transfer, vote)VALUES ('%s',%d,%d)" %(name,transfer,vote)
+
+              cursor.execute(sql)
+              db.commit()
+
+              self.reminds[name] = remind
+
+              cursor.close()
+              db.close()
+
+              Logger().Log(Text.TEXT62)
+         except:
+              Logger().Error(Text.TEXT63)

@@ -66,6 +66,11 @@ def createMenu():
                         "type": "click",
                         "name": "查询EOS账号",
                         "key": "find"
+                    },
+                    {
+                        "type": "click",
+                        "name": "EOS提醒设置",
+                        "key": "set"
                     }
                 ]
             }

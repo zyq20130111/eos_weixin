@@ -37,15 +37,26 @@ class TextMsg(Msg):
     
     def send(self):
         opts =  self.__dict['Content'].split() 
-        if (opts[0].lower() == "bind" or opts[0] == "c1"):
+        if ((opts[0].lower() == "bind") and (len(opts) >=2 )):
            return self.bindEosAccount(opts[1])
-        elif (opts[0].lower()  == "unbind"):
+        elif ((opts[0].lower()  == "unbind") and (len(opts) >=2) ):
            return self.unbindEosAccount(opts[1])
+        elif((opts[0].lower() == "set") and (len(opts) > 2)):
+           return self.setEos(opts[1],opts[2]):
         elif (opts[0].lower() == "help"):
             return self.helpCmd()
         else:
            return self.errorCmd()
     
+    def setEos(name,numstr1,numstr2):
+
+       Logger().Log(Text.TEXT65)
+       name = self.__dict['ToUserName']
+       num1 = long(numstr1)
+       num2 = long(numstr2)
+ 
+       AccountMgr().Instance().AddRemind(name,num1,num2)
+       
     def helpCmd(self):
         self.__dict['Content'] =  Text.TEXT26
         return self.sendMsg()
@@ -218,7 +229,9 @@ class EventMsg(Msg):
               print content 
               self.__dict['Content'] = content
               return self.sendMsg()
-              
+        elif((self.event == "CLICK") and (self.eventkey == "set")):
+              self.__dict['Content'] = Text.TEXT64
+              return self.sendMsg()
     def getaccount(self,account):
 
        Logger().Log(Text.TEXT34)
