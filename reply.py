@@ -43,6 +43,7 @@ class TextMsg(Msg):
         elif ((opts[0].lower()  == "unbind") and (len(opts) >=2) ):
            return self.unbindEosAccount(opts[1])
         elif((opts[0].lower() == "set") and (len(opts) > 2)):
+           print 'set'
            return self.setEos(opts[1],opts[2])
         elif (opts[0].lower() == "help"):
             return self.helpCmd()
