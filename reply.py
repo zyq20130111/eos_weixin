@@ -97,6 +97,7 @@ class TextMsg(Msg):
        af =  BlockMgr().Instance().getAccount(account) 
        if (not af is  None):
 
+          print ("xxxx")
           self.__dict['Content'] = Text.TEXT24
           name = self.__dict['ToUserName']
           account_name = af['account_name']
