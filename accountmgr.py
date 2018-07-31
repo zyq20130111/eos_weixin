@@ -255,14 +255,15 @@ class AccountMgr(object):
             return
 
          try:
+              print ("1111")
               remind = EosRemind(name,transfer,vote)
-
+              print ("222")
               db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
               cursor = db.cursor()
-
+              print "33333"
               sql = ""
               cursor.execute("SELECT * FROM remind_tbl where name ='%s'") %(name)
- 
+               
               print "111"
               cursor.fetchall() 
               print "aaa"
