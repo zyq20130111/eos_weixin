@@ -213,7 +213,8 @@ class BlockMgr(object):
        if(long(balanceSplt[0]) < transfer):
           print(Text.TEXT68)
           return
-        
+       
+       print "dddddd"        
        token = AccessMgr().Instance().getToken()
        if not token is None:
           try:
