@@ -258,8 +258,15 @@ class AccountMgr(object):
 
               db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
               cursor = db.cursor()
-              sql = "INSERT INTO remind_tbl(name,transfer, vote)VALUES ('%s',%d,%d)" %(name,transfer,vote)
-              print sql
+
+              sql = ""
+              cursor.execute("SELECT * FROM remind_tbl where name ='%s'") %(name)
+  
+              if(cursor.rowcount <= 0):
+                  sql = "INSERT INTO remind_tbl(name,tranfer, vote)VALUES ('%s',%d,%d)" %(name,transfer,vote)
+              else:
+                  sql = "update remind_tbl SET tranfer=%d,vote=%d where name = '%s'" %(name,transfer,vote)
+              
               cursor.execute(sql)
               db.commit()
 
