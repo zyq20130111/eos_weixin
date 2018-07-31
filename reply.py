@@ -49,13 +49,14 @@ class TextMsg(Msg):
            return self.errorCmd()
     
     def setEos(numstr1,numstr2):
-
+       print "setEOS"
        Logger().Log(Text.TEXT65)
        name = self.__dict['ToUserName']
        num1 = long(numstr1)
        num2 = long(numstr2)
-        
+       print num1,num2
        AccountMgr().Instance().AddRemind(name,num1,num2)
+       print "2222"
        self.__dict['Content'] = Text.TEXT66
        
        return self.sendMsg()       
