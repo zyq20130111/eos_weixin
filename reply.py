@@ -101,8 +101,9 @@ class TextMsg(Msg):
           self.__dict['Content'] = Text.TEXT24
           name = self.__dict['ToUserName']
           account_name = af['account_name']
-         
+          print "yyyy"         
           status = AccountMgr().Instance().getAccountStatus(name,account_name,"demo")
+          print status
           if(status == -1):
               self.__dict['Content'] = Text.TEXT39
           elif(status  == -2):
