@@ -92,7 +92,7 @@ class TextMsg(Msg):
           return self.sendMsg()                
 
     def bindEosAccount(self,account):
-       
+       print "222" 
        Logger().Log(Text.TEXT36)       
        af =  BlockMgr().Instance().getAccount(account) 
        if (not af is  None):
