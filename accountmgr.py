@@ -267,6 +267,7 @@ class AccountMgr(object):
               else:
                   sql = "update remind_tbl SET tranfer=%d,vote=%d where name = '%s'" %(name,transfer,vote)
               
+              print sql
               cursor.execute(sql)
               db.commit()
 
