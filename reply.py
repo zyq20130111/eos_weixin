@@ -53,12 +53,17 @@ class TextMsg(Msg):
        
        Logger().Log(Text.TEXT65)
        name = self.__dict['ToUserName']
-       num1 = long(numstr1)
-       num2 = long(numstr2)
 
-       AccountMgr().Instance().AddRemind(name,num1,num2)
-       self.__dict['Content'] = Text.TEXT66
-       
+       try:
+          num1 = long(numstr1)
+          num2 = long(numstr2)
+
+          AccountMgr().Instance().AddRemind(name,num1,num2)
+          self.__dict['Content'] = Text.TEXT66
+
+       except:
+          self.__dict['Content'] = Text.TEXT69 
+      
        return self.sendMsg()       
 
     def helpCmd(self):

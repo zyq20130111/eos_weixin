@@ -71,3 +71,4 @@ class Text(object):
    TEXT66 = "设置成功"
    TEXT67 = "sendTransertMsg split eror"
    TEXT68 = "小于转帐阀值"
+   TEXT69 = "输入错误"
