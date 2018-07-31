@@ -103,7 +103,8 @@ class AccountMgr(object):
          if(not self.accounts.has_key(name)):
               self.accounts[name] = []
          print "iiii"
-
+         print "22222"
+         print  self.accounts[name]
          for eos in self.accounts[name]:
                print "ssssssss"
                if eos.eos_name == eos_name:
