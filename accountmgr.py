@@ -103,7 +103,9 @@ class AccountMgr(object):
          if(not self.accounts.has_key(name)):
               self.accounts[name] = []
          print "iiii"
+
          for eos in self.accounts[name]:
+               print "ssssssss"
                if eos.eos_name == eos_name:
                   Logger().Log(Text.TEXT39)
                   return -1
