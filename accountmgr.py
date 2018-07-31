@@ -67,9 +67,9 @@ class AccountMgr(object):
              cursor.execute("SELECT * FROM remind_tbl")
              for row in cursor.fetchall():
 
+                  print row[1],row[2],row[3]
                   remind = EosRemind(row[1],row[2],row[3])
-                  if(not self.reminds.has_key(row[1])):
-                     self.accounts[row1] = remind
+                  self.accounts[row[1]] = remind
  
              db.cursor.close()
              db.close()
