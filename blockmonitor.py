@@ -209,7 +209,6 @@ class BlockMgr(object):
           Logger().Log(Text.TEXT67)
           return
 
-       print(float("21111111111111.0000") + float("21111111111111.0000"))
        if(float(balanceSplt[0]) < transfer):
           Logger().Log(Text.TEXT68)
           return
