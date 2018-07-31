@@ -249,7 +249,7 @@ class AccountMgr(object):
     def AddRemind(self,name,transfer,vote):
 
          
-         print(Text.TEXT61)
+         Logger().Log(Text.TEXT61)
          if(self.sql_inj(name) or self.sql_inj(str(transfer)) or self.sql_inj(str(vote))):
             Logger().Log("addremind 非法的sql语句注入")
             return
@@ -262,7 +262,9 @@ class AccountMgr(object):
 
               sql = ""
               cursor.execute("SELECT * FROM remind_tbl where name ='%s'") %(name)
-  
+ 
+              cursor.fetchall() 
+
               if(cursor.rowcount <= 0):
                   sql = "INSERT INTO remind_tbl(name,tranfer, vote)VALUES ('%s',%d,%d)" %(name,transfer,vote)
               else:
