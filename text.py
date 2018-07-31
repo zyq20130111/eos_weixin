@@ -66,7 +66,7 @@ class Text(object):
    TEXT61 = "addremind"
    TEXT62 = "addremind success"
    TEXT63 = "add remind failed"
-   TEXT64 = "使用set x y 命令分别设置最小转帐数目,最小投票数量最小值"
+   TEXT64 = "使用set x y 命令分别设置最小转帐提醒额度(x),最小投票提醒票数(y)"
    TEXT65 = "add remind"
    TEXT66 = "设置成功"
    TEXT67 = "sendTransertMsg split eror"
