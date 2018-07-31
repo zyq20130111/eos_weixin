@@ -37,29 +37,26 @@ class TextMsg(Msg):
     
     def send(self):
         opts =  self.__dict['Content'].split()
-        print opts 
+        
         if ((opts[0].lower() == "bind") and (len(opts) >=2 )):
            return self.bindEosAccount(opts[1])
         elif ((opts[0].lower()  == "unbind") and (len(opts) >=2) ):
            return self.unbindEosAccount(opts[1])
         elif((opts[0].lower() == "set") and (len(opts) > 2)):
-           print 'set'
-           return self.setEos(opts[1],opts[2])
+           return self.setLimits(opts[1],opts[2])
         elif (opts[0].lower() == "help"):
             return self.helpCmd()
         else:
            return self.errorCmd()
     
-    def setEos(numstr1,numstr2):
-       print "11111"
+    def setLimits(self,numstr1,numstr2):
        
        Logger().Log(Text.TEXT65)
        name = self.__dict['ToUserName']
        num1 = long(numstr1)
        num2 = long(numstr2)
-       print num1,num2
+
        AccountMgr().Instance().AddRemind(name,num1,num2)
-       print "2222"
        self.__dict['Content'] = Text.TEXT66
        
        return self.sendMsg()       
