@@ -64,6 +64,7 @@ class AccountMgr(object):
                   self.eosaccounts[row[2]].append(account)
 
              #初始化remind表
+             
              cursor.execute("SELECT * FROM remind_tbl")
              for row in cursor.fetchall():
 
@@ -71,7 +72,7 @@ class AccountMgr(object):
                   remind = EosRemind(row[1],row[2],row[3])
                   self.accounts[row[1]] = remind
  
-             db.cursor.close()
+             cursor.close()
              db.close()
             
         except:
