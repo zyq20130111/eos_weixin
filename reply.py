@@ -48,7 +48,7 @@ class TextMsg(Msg):
         else:
            return self.errorCmd()
     
-    def setEos(name,numstr1,numstr2):
+    def setEos(numstr1,numstr2):
 
        Logger().Log(Text.TEXT65)
        name = self.__dict['ToUserName']
