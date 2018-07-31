@@ -211,8 +211,8 @@ class BlockMgr(object):
 
        print balanceSplt
        print "sssss"
-       print long(balanceSplt[0])
-       if(long(balanceSplt[0]) < transfer):
+       print float(balanceSplt[0])
+       if(float(balanceSplt[0]) < transfer):
           print(Text.TEXT68)
           return
        
