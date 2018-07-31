@@ -209,7 +209,7 @@ class BlockMgr(object):
           print(Text.TEXT67)
           return
 
-       print balanceSplt[0]
+       print long(balanceSplt[0]),transfer
        if(long(balanceSplt[0]) < transfer):
           print(Text.TEXT68)
           return
