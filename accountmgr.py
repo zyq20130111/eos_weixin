@@ -99,15 +99,16 @@ class AccountMgr(object):
            return None         
 
     def getAccountStatus(self,name,eos_name,demo):
-         
+         print "jjjj" 
          if(not self.accounts.has_key(name)):
               self.accounts[name] = []
-
+         print "iiii"
          for eos in self.accounts[name]:
                if eos.eos_name == eos_name:
                   Logger().Log(Text.TEXT39)
                   return -1
 
+         print "mmmmm"
          if(len(self.accounts[name]) == Config.EOSCOUNTINWEIXIN):
               Logger().Log(Text.TEXT1)
               return -2
