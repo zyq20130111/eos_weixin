@@ -263,9 +263,11 @@ class AccountMgr(object):
               sql = ""
               cursor.execute("SELECT * FROM remind_tbl where name ='%s'") %(name)
  
+              print "111"
               cursor.fetchall() 
-
+              print "aaa"
               if(cursor.rowcount <= 0):
+                  print "bbb"
                   sql = "INSERT INTO remind_tbl(name,tranfer, vote)VALUES ('%s',%d,%d)" %(name,transfer,vote)
               else:
                   sql = "update remind_tbl SET tranfer=%d,vote=%d where name = '%s'" %(name,transfer,vote)
