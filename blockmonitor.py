@@ -196,9 +196,24 @@ class BlockMgr(object):
     
 
     def sendTransertMsg(self,trxid,pbwx,actionID,auser,buser,balance):
-
-       
+ 
        Logger().Log(Text.TEXT16)
+
+       transfer = 0
+       re = AccountMgr().Instance().getRemind(pbwx)
+       if not re is None:
+          transfer = re.transfer
+       
+       balanceSplt = balance.split("EOS")
+       if(len(balanceSplt) <=0 ):
+          print(Text.TEXT67)
+          return
+
+       print balanceSplt[0]
+       if(long(balanceSplt[0]) < transfer)
+          Logger().Log(Text.TEXT68)
+          return
+        
        token = AccessMgr().Instance().getToken()
        if not token is None:
           try:
