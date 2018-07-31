@@ -259,7 +259,7 @@ class AccountMgr(object):
               db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
               cursor = db.cursor()
               sql = "INSERT INTO remind_tbl(name,transfer, vote)VALUES ('%s',%d,%d)" %(name,transfer,vote)
-
+              print sql
               cursor.execute(sql)
               db.commit()
 
