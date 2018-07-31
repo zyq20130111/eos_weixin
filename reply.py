@@ -92,18 +92,17 @@ class TextMsg(Msg):
           return self.sendMsg()                
 
     def bindEosAccount(self,account):
-       print "222" 
+        
        Logger().Log(Text.TEXT36)       
        af =  BlockMgr().Instance().getAccount(account) 
        if (not af is  None):
 
-          print ("xxxx")
           self.__dict['Content'] = Text.TEXT24
           name = self.__dict['ToUserName']
           account_name = af['account_name']
-          print "yyyy"         
+                   
           status = AccountMgr().Instance().getAccountStatus(name,account_name,"demo")
-          print status
+          
           if(status == -1):
               self.__dict['Content'] = Text.TEXT39
           elif(status  == -2):
@@ -111,7 +110,7 @@ class TextMsg(Msg):
           elif(status == -3):
               self.__dict['Content'] = Text.TEXT38
           elif(status == 0):
-              print "3333"
+              
               self.__dict['Content'] = Text.TEXT24
               AccountMgr().Instance().AddAccount(name,account_name,"demo")       
           return self.sendMsg()

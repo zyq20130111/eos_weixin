@@ -70,7 +70,7 @@ class AccountMgr(object):
 
                   print row[1],row[2],row[3]
                   remind = EosRemind(row[1],row[2],row[3])
-                  self.accounts[row[1]] = remind
+                  self.reminds[row[1]] = remind
  
              cursor.close()
              db.close()
@@ -99,19 +99,16 @@ class AccountMgr(object):
            return None         
 
     def getAccountStatus(self,name,eos_name,demo):
-         print "jjjj" 
+         
          if(not self.accounts.has_key(name)):
               self.accounts[name] = []
-         print "iiii"
-         print "22222"
-         print  self.accounts[name]
+         
          for eos in self.accounts[name]:
-               print "ssssssss"
+              
                if eos.eos_name == eos_name:
                   Logger().Log(Text.TEXT39)
                   return -1
 
-         print "mmmmm"
          if(len(self.accounts[name]) == Config.EOSCOUNTINWEIXIN):
               Logger().Log(Text.TEXT1)
               return -2
