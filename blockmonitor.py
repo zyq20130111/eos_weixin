@@ -211,7 +211,7 @@ class BlockMgr(object):
 
        print balanceSplt[0]
        if(long(balanceSplt[0]) < transfer):
-          Logger().Log(Text.TEXT68)
+          print(Text.TEXT68)
           return
         
        token = AccessMgr().Instance().getToken()
