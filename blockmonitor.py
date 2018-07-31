@@ -205,18 +205,15 @@ class BlockMgr(object):
           transfer = re.transfer
        
        balanceSplt = balance.split("EOS")
-       if(len(balanceSplt) <=0 ):
-          print(Text.TEXT67)
+       if(len(balanceSplt) <= 0 ):
+          Logger().Log(Text.TEXT67)
           return
 
-       print balanceSplt
-       print "sssss"
-       print float(balanceSplt[0])
        if(float(balanceSplt[0]) < transfer):
-          print(Text.TEXT68)
+          Logger().Log(Text.TEXT68)
           return
        
-       print "dddddd"        
+             
        token = AccessMgr().Instance().getToken()
        if not token is None:
           try:
