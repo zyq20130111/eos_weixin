@@ -36,7 +36,8 @@ class TextMsg(Msg):
         return XmlForm.format(**self.__dict)
     
     def send(self):
-        opts =  self.__dict['Content'].split() 
+        opts =  self.__dict['Content'].split()
+        print opts 
         if ((opts[0].lower() == "bind") and (len(opts) >=2 )):
            return self.bindEosAccount(opts[1])
         elif ((opts[0].lower()  == "unbind") and (len(opts) >=2) ):
