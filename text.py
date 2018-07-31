@@ -68,3 +68,4 @@ class Text(object):
    TEXT63 = "add remind failed"
    TEXT64 = "使用set x y 命令分别设置最小转帐数目,最小投票数量最小值"
    TEXT65 = "add remind"
+   TEXT66 = "设置成功"
