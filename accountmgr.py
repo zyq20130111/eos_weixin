@@ -268,7 +268,7 @@ class AccountMgr(object):
               if(cursor.rowcount <= 0):
                   sql = "INSERT INTO remind_tbl(name,tranfer, vote)VALUES ('%s',%d,%d)" %(name,transfer,vote)
               else:
-                  sql = "update remind_tbl SET tranfer=%d,vote=%d where name = '%s'" %(name,transfer,vote)
+                  sql = "update remind_tbl SET tranfer=%d,vote=%d where name = '%s'" %(transfer,vote,name)
               
               
               cursor.execute(sql)
