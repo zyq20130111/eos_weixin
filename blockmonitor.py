@@ -6,6 +6,7 @@ import threading
 import time
 import requests
 import json
+import pytz
 
 from accessmgr import AccessMgr
 from config import Config  
@@ -195,6 +196,12 @@ class BlockMgr(object):
                 Logger().Log(Text.TEXT15)
     
 
+    def getDateTime(self):
+
+        tz = pytz.timezone('Asia/Shanghai') #东八区
+        t = datetime.datetime.fromtimestamp(int(time.time()), pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
+        return t
+
     def sendTransertMsg(self,trxid,pbwx,actionID,auser,buser,balance):
  
        Logger().Log(Text.TEXT16)
@@ -221,7 +228,7 @@ class BlockMgr(object):
              postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
 
              url = Text.TEXT60.format(trxid)
-             nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+             nowTime = self.getDateTime() 
              reMarket = Text.TEXT45.format(auser,buser)
              
              r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.TRANSFERTEMPLATEID,"url":url,
@@ -263,7 +270,7 @@ class BlockMgr(object):
               postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
               
               accountNum = self.getAccountDelegate(voter)
-              nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+              nowTime = self.getDateTime()
               remark = Text.TEXT42.format(voter,pb,accountNum)
              
               voteNum = 0
