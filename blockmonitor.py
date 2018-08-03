@@ -111,17 +111,16 @@ class BlockMgr(object):
            
             for row in votersJson["rows"]: 
 
-                print row
                 vote =  Voter(row["owner"],row["proxy"],row["producers"],row["staked"],row["is_proxy"])
                 owner = row["owner"]
                 
                 if(not self.voters.has_key(owner)):
                     self.voters[owner] = vote
+                    print vote.owner
 
             if("more" in votersJson):
                
                 more = votersJson["more"]
-                print more
                 if(more == False):
                    return None
 
@@ -138,7 +137,7 @@ class BlockMgr(object):
         
         start = ""
         while(True):
-            print "start ",start
+            
             vote = self.getVoters(start,3)
             if(not vote is None):
                 start = vote.owner
