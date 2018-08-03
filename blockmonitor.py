@@ -79,71 +79,12 @@ class BlockMgr(object):
     def Start(self):
 
          self.block_num_id = Config.START_BLOCK_NUM_ID
-         self.initVoters()
               
          t =threading.Thread(target=self.threadFun,args=(1,))
          t.setDaemon(True)#设置线程为后台线程
          t.start()
 
-
-    def getVoters(self,start,limit):
-        print "getVoters"
-        headers = {'content-type': "application/json"}
-        url = Config.HTTP_URL + "get_table_rows"
-        try: 
-             r = requests.post(url,data =json.dumps({"scope":"eosio","code":"eosio","table":"voters","lower_bound":start,"json":"true","limit":limit}),headers = headers);
-             
-             if( r.status_code == 200):
-                 js = json.loads(r.text)
-                 return self.parseVoter(js)
-             else:
-                 print(Text.Text71)
-                 return None
-        except:
-             Logger().Log(Text.TEXT71)
-             return None
-
-    def parseVoter(self,votersJson):
-        print "parseVote"
-        vote = None
-        print votersJson
-        if("rows" in votersJson):
-           
-            for row in votersJson["rows"]: 
-                
-                vote =  Voter(row["owner"],row["proxy"],row["producers"],row["staked"],row["is_proxy"])
-                owner = row["owner"]
-                
-                if(not self.voters.has_key(owner)):
-                    self.voters[owner] = vote
-                    print vote.owner
-
-            if("more" in votersJson):
-               
-                more = votersJson["more"]
-                if(more == False):
-                   return None
-
-            return vote
-
-        else:
-            return None
-        
-    def initVoters(self):
-        
-        print(Text.TEXT70)
-        self.voters = {}
-        
-        start = ""
-        while(True):
-            print "------------------" 
-            vote = self.getVoters(start,3)
-            if(not vote is None):
-                start = vote.owner
-            else:
-               break
-            print "start =" , start
-
+   
     def parseBlock(self,blockJson):
         
         Logger().Log(Text.TEXT27)       
