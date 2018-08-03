@@ -122,10 +122,10 @@ class BlockMgr(object):
                
                 more = votersJson["more"]
                 print more
-                if(more == false):
+                if(more == False):
                    return None
 
-            print vote
+            print vote.owner
             return vote
 
         else:
