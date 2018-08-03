@@ -312,21 +312,18 @@ class BlockMgr(object):
 
     def getAccountDelegate(self,vote):
          
-          net_weight = 0
-          cpu_weight = 0 
+          weight = 0
           
           acc = self.getAccount(vote)
           if(acc is None):
-              return
-          
-          if("net_weight" in acc):
-              net_weight = acc["net_weight"]
-          
-          if("cpu_weight" in acc):
-              cpu_weight =  acc["cpu_weight"]
-           
+              return 0
 
-          return  (long(net_weight) + long(cpu_weight)) / 10000                 
+          if("voter_info" in acc)
+              if("staked" in acc["voter_info"]):
+                 weight = acc["voter_info"]["staked"]
+ 
+
+          return  long(weight) / 10000                 
 
 
     def sendVoteMsg(self,trxid,pbwx,voter,pb):
