@@ -108,9 +108,10 @@ class BlockMgr(object):
         vote = None
         
         if("rows" in votersJson):
-
+           
             for row in votersJson["rows"]: 
 
+                print row
                 vote =  Voter(row["owner"],row["proxy"],row["producers"],row["stake"],row["is_proxy"])
                 owner = row["owner"]
                 print owner
