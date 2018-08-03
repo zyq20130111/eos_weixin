@@ -259,7 +259,7 @@ class BlockMgr(object):
           if(acc is None):
               return 0
 
-          if("voter_info" in acc)
+          if("voter_info" in acc):
               if("staked" in acc["voter_info"]):
                  weight = acc["voter_info"]["staked"]
  
