@@ -137,7 +137,7 @@ class BlockMgr(object):
         
         start = ""
         while(True):
-            
+            print "------------------" 
             vote = self.getVoters(start,3)
             if(not vote is None):
                 start = vote.owner
