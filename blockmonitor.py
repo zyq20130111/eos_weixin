@@ -91,6 +91,7 @@ class BlockMgr(object):
         print "getVoters"
         headers = {'content-type': "application/json"}
         url = Config.HTTP_URL + "get_table_rows"
+        print url
         try: 
              r = requests.post(url,data =json.dumps({"scope":"eosio","code":"eosio","table":"voters","json": true,"lower_bound":start,"limit":limit}),headers = headers);
              print r.text
@@ -215,7 +216,7 @@ class BlockMgr(object):
         return action;
 
     def getBlockInfo(self,blockid):
-        
+     
         Logger().Log(Text.TEXT10 % (blockid))
         headers = {'content-type': "application/json"}
         url = Config.HTTP_URL + "get_block"
