@@ -112,9 +112,9 @@ class BlockMgr(object):
             for row in votersJson["rows"]: 
 
                 print row
-                vote =  Voter(row["owner"],row["proxy"],row["producers"],row["stake"],row["is_proxy"])
+                vote =  Voter(row["owner"],row["proxy"],row["producers"],row["staked"],row["is_proxy"])
                 owner = row["owner"]
-                print owner
+                
                 if(not self.voters.has_key(owner)):
                     self.voters[owner] = vote
 
