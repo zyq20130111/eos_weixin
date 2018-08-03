@@ -93,7 +93,7 @@ class BlockMgr(object):
         url = Config.HTTP_URL + "get_table_rows"
         print url
         try: 
-             r = requests.post(url,data =json.dumps({"scope":"eosio","code":"eosio","table":"voters","json": true,"lower_bound":start,"limit":limit}),headers = headers);
+             r = requests.post(url,data =json.dumps({"scope":"eosio","code":"eosio","table":"voters","lower_bound":start,"limit":limit}),headers = headers);
              print r.text
              if( r.status_code == 200):
                  print r.text
