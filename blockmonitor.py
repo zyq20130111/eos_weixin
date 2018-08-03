@@ -122,6 +122,7 @@ class BlockMgr(object):
                
                 more = votersJson["more"]
                 print more
+                print more.lower()
                 if(more.lower() == "false"):
                    return None
 
