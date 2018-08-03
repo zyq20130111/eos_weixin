@@ -124,7 +124,6 @@ class BlockMgr(object):
                 if(more == False):
                    return None
 
-            print vote.owner
             return vote
 
         else:
@@ -143,6 +142,7 @@ class BlockMgr(object):
                 start = vote.owner
             else:
                break
+            print "start =" , start
 
     def parseBlock(self,blockJson):
         
