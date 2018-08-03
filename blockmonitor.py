@@ -91,12 +91,10 @@ class BlockMgr(object):
         print "getVoters"
         headers = {'content-type': "application/json"}
         url = Config.HTTP_URL + "get_table_rows"
-        print url
         try: 
              r = requests.post(url,data =json.dumps({"scope":"eosio","code":"eosio","table":"voters","lower_bound":start,"json":"true","limit":limit}),headers = headers);
              print r.text
              if( r.status_code == 200):
-                 print r.text
                  js = json.loads(r.text)
                  return self.parseVoter(js)
              else:
