@@ -105,6 +105,7 @@ class BlockMgr(object):
     def parseVoter(self,votersJson):
         
         vote = None
+        print "parseVote"
 
         if("rows" in votersJson):
 
@@ -112,7 +113,7 @@ class BlockMgr(object):
 
                 vote =  Voter(row["owner"],row["proxy"],row["producers"],row["stake"],row["is_proxy"])
                 owner = row["owner"]
-
+                print owner
                 if(not self.voters.has_key(owner)):
                     self.voters[owner] = vote
 
