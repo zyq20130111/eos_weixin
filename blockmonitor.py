@@ -105,7 +105,7 @@ class BlockMgr(object):
     def parseVoter(self,votersJson):
         
         vote = None
-        print "parseVote"
+        print votersJson
 
         if("rows" in votersJson):
 
@@ -128,8 +128,8 @@ class BlockMgr(object):
             return None
         
     def initVoters(self):
-
-        Logger().Log(Text.TEXT70)
+        
+        print(Text.TEXT70)
         self.voters = {}
         
         start = ""
