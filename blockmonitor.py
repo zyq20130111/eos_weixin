@@ -87,7 +87,7 @@ class BlockMgr(object):
 
 
     def getVoters(self,start,limit):
-        
+        print "getVoters"
         headers = {'content-type': "application/json"}
         url = Config.HTTP_URL + "get_table_rows"
         try: 
@@ -104,13 +104,13 @@ class BlockMgr(object):
              return None
 
     def parseVoter(self,votersJson):
-        
+        print "parseVote"
         vote = None
-        
+        print votersJson
         if("rows" in votersJson):
            
             for row in votersJson["rows"]: 
-
+                
                 vote =  Voter(row["owner"],row["proxy"],row["producers"],row["staked"],row["is_proxy"])
                 owner = row["owner"]
                 
