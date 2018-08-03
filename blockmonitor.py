@@ -119,11 +119,13 @@ class BlockMgr(object):
                     self.voters[owner] = vote
 
             if("more" in votersJson):
-
+               
                 more = votersJson["more"]
+                print more
                 if(more.lower() == "false"):
                    return None
 
+            print vote
             return vote
 
         else:
