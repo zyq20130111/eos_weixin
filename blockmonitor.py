@@ -35,6 +35,14 @@ class Action(object):
          self.name    = name
          self.data    = data
 
+class Voter(object):
+    def __init__(self,owner,proxy,producers,stake,is_proxy):
+       self.owner = owner
+       self.proxy = proxy
+       self.producers = producers
+       self.stake = stake
+       self.is_proxy = is_proxy
+
 class BlockMgr(object):
 
     __instance = None
@@ -70,10 +78,67 @@ class BlockMgr(object):
 
     def Start(self):
 
-         self.block_num_id = Config.START_BLOCK_NUM_ID     
+         self.block_num_id = Config.START_BLOCK_NUM_ID
+         self.initVoters()
+              
          t =threading.Thread(target=self.threadFun,args=(1,))
          t.setDaemon(True)#设置线程为后台线程
          t.start()
+
+
+    def getVoters(self,start,limit):
+
+        headers = {'content-type': "application/json"}
+        url = Config.HTTP_URL + "get_table_rows"
+        try: 
+             r = requests.post(url,data =json.dumps({"scope":"eosio","code":"eosio","table":"voters","json": true,"lower_bound":start,"limit":limit}),headers = headers);
+             if( r.status_code == 200):
+                 js = json.loads(r.text)
+                 return self.parseVoter(js)
+             else:
+                 Logger().Log(Text.Text71)
+                 return None
+        except:
+             Logger().Log(Text.TEXT71)
+             return None
+
+    def parseVoter(self,votersJson):
+        
+        vote = None
+
+        if("rows" in votersJson):
+
+            for row in votersJson["rows"]: 
+
+                vote =  Voter(row["owner"],row["proxy"],row["producers"],row["stake"],row["is_proxy"])
+                owner = row["owner"]
+
+                if(not self.voters.has_key(owner)):
+                    self.voters[owner] = vote
+
+            if("more" in votersJson):
+                more = votersJson["more"]
+                if(more == "false"):
+                   return None
+
+            return vote
+
+        else:
+            return None
+        
+    def initVoters(self):
+
+        Logger().Log(Text.TEXT70)
+        self.voters = {}
+        
+        start = ""
+        while(True):
+
+            vote = self.getVoters(start,3)
+            if(not vote is None):
+                start = vote.owner
+            else:
+               break
 
     def parseBlock(self,blockJson):
         

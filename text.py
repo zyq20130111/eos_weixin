@@ -72,3 +72,5 @@ class Text(object):
    TEXT67 = "sendTransertMsg split eror"
    TEXT68 = "小于转帐阀值"
    TEXT69 = "输入错误"
+   TEXT70 = "init voters"
+   TEXT71 = "parse get_row_table error"
