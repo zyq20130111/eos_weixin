@@ -286,8 +286,8 @@ class AccountMgr(object):
 
 
 
-    def addVote(vote,pb,votenum,date):
-       print "addvote"
+    def addVote(self,vote,pb,votenum,date):
+      
        Logger().Log("addVote")
        try:
            db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
@@ -295,10 +295,10 @@ class AccountMgr(object):
            cursor = db.cursor()
            sql = "SELECT * FROM voter_tbl where voter ='%s' and pb = '%s' and votenum = %d" %(vote,pb,votenum)
            cursor.execute(sql)
-           print sql
+           
            if(cursor.rowcount > 0):
               return
-           print sql
+           
            sql = "INSERT INTO voter_tbl(voter,producer,date,vote)VALUES ('%s','%s','%s',%d)" %(vote,pb,date,votenum)
  
            cursor.execute(sql)
