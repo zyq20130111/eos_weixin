@@ -278,7 +278,7 @@ class BlockMgr(object):
 
 
     def sendVoteMsg(self,trxid,pbwx,voter,pb):
-       
+       print "sendVotemsg" 
        Logger().Log(Text.TEXT18)
        token = AccessMgr().Instance().getToken()
        if not token is None:
@@ -295,8 +295,9 @@ class BlockMgr(object):
               if not re is None:
                     voteNum = re.vote
         
+              print "aaaaaaa"
               AccountMgr().Instance().addVote(voter,pb,voteNum,nowTime)
-      
+              print "bbbbbb"
               if(accountNum < voteNum): 
                     Logger().Log(Text.TEXT68)
                     return 
