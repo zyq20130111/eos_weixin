@@ -295,15 +295,16 @@ class AccountMgr(object):
            cursor = db.cursor()
            sql = "SELECT * FROM voter_tbl where voter ='%s' and pb = '%s' and votenum = %d" %(vote,pb,votenum)
            cursor.execute(sql)
-           
+        
+           cursor.fetchall()   
            if(cursor.rowcount > 0):
               return
            
            sql = "INSERT INTO voter_tbl(voter,producer,date,vote)VALUES ('%s','%s','%s',%d)" %(vote,pb,date,votenum)
- 
+           
            cursor.execute(sql)
            db.commit()
-          
+           print sql
            cursor.close()
            db.close()
 
