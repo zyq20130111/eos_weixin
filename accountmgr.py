@@ -315,18 +315,23 @@ class AccountMgr(object):
 
     def addTransfer(self,transferor,recipient,date,quantity):
 
+       print "addTransfer"
        Logger().Log("addTransfer")
        try:
            db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
 
            cursor = db.cursor()
            sql = "SELECT * FROM transfer_tbl  where transferor ='%s' and recipient = '%s' and quantity = '%s'" %(transferor,recipient,quantity)
+           print sql
            cursor.execute(sql)
+
+           cursor.fetchall()
            if(cursor.rowcount > 0):
               return
 
+           
            sql = "INSERT INTO transfer_tbl(transferor,recipient,date,quantity)VALUES ('%s','%s','%s','%s')" %(transferor,recipient,date,quantity)
-
+           print sql
            cursor.execute(sql)
            db.commit()
 
