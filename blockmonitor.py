@@ -226,6 +226,14 @@ class BlockMgr(object):
           Logger().Log(Text.TEXT67)
           return
 
+       nowTime = self.getDateTime()
+       try:
+             AccountMgr().Instance().addTransfer(auser,buser,nowTime,balance)
+       except:
+             Logger().Log(Text.TEXT17)
+             return
+           
+
        if(float(balanceSplt[0]) < transfer):
           Logger().Log(Text.TEXT68)
           return
@@ -238,11 +246,8 @@ class BlockMgr(object):
              headers = {'content-type': "application/json"}
              postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
 
-             url = Text.TEXT60.format(trxid)
-             nowTime = self.getDateTime() 
+             url = Text.TEXT60.format(trxid) 
              reMarket = Text.TEXT45.format(auser,buser)
-                  
-             AccountMgr().Instance().addTransfer(auser,buser,nowTime,balance)
 
              r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.TRANSFERTEMPLATEID,"url":url,
              "data":{"first":{"value":Text.TEXT43},"keyword1":{"value":actionID},"keyword2":{"value":nowTime},
@@ -287,12 +292,12 @@ class BlockMgr(object):
               re = AccountMgr().Instance().getRemind(pbwx)
               if not re is None:
                     voteNum = re.vote
-              
+        
+              AccountMgr().Instance().addVote(voter,pb,voteNum,nowTime)
+      
               if(accountNum < voteNum): 
                     Logger().Log(Text.TEXT68)
                     return 
-
-              AccountMgr().Instance().addVote(voter,pb,voteNum,nowTime)
  
               url = Text.TEXT60.format(trxid)
               r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.VOTETEMPLATEID,"url":url,
