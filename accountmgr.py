@@ -302,7 +302,8 @@ class AccountMgr(object):
               return
            
            sql = "INSERT INTO voter_tbl(voter,producer,date,vote)VALUES ('%s','%s','%s',%d)" %(vote,pb,date,votenum)
-           
+          
+           print sql 
            cursor.execute(sql)
            db.commit()
            print sql
