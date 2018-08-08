@@ -283,3 +283,49 @@ class AccountMgr(object):
               Logger().Log(Text.TEXT62)
          except:
               Logger().Error(Text.TEXT63)
+
+
+
+    def addVote(vote,pb,votenum,date):
+        
+       Logger().Log("addVote")
+       try:
+           db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
+ 
+           cursor = db.cursor()
+           sql = "SELECT * FROM voter_tbl where voter ='%s' and pb = '%s' and votenum = %d" %(vote,pb,votenum)
+           cursor.execute(sql)
+           
+           if(cursor.rowcount > 0):
+              return
+           
+           sql = "INSERT INTO voter_tbl(voter,producer,date,vote)VALUES ('%s','%s','%s',%d)" %(vote,pb,date,votenum)
+ 
+           cursor.execute(sql)
+           db.commit()
+          
+           cursor.close()
+           db.close()
+
+           Logger().Log("addVote success")
+       except:
+           Logger().Log("addVote fail")
+
+    def addTransfer(transferor,recipient,date,quantity):
+
+       Logger().Log("addTransfer")
+       try:
+           db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
+
+           cursor = db.cursor()
+           sql = "INSERT INTO transfer_tbl(transferor,recipient,date,quantity)VALUES ('%s','%s','%s','%s')" %(transferor,recipient,date,quantity)
+
+           cursor.execute(sql)
+           db.commit()
+
+           cursor.close()
+           db.close()
+
+           Logger().Log("addTransfer success")
+       except:
+           Logger().Log("addTransfer fail")

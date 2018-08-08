@@ -234,13 +234,16 @@ class BlockMgr(object):
        token = AccessMgr().Instance().getToken()
        if not token is None:
           try:
+
              headers = {'content-type': "application/json"}
              postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
 
              url = Text.TEXT60.format(trxid)
              nowTime = self.getDateTime() 
              reMarket = Text.TEXT45.format(auser,buser)
-             
+                  
+             AccountMgr().Instance().addTransfer(auser,buser,nowTime,balance)
+
              r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.TRANSFERTEMPLATEID,"url":url,
              "data":{"first":{"value":Text.TEXT43},"keyword1":{"value":actionID},"keyword2":{"value":nowTime},
              "keyword3":{"value":actionID},"keyword4":{"value":Text.TEXT44},"keyword5":{"value":balance},"remark":{"value":reMarket}}}),headers = headers);
@@ -289,6 +292,7 @@ class BlockMgr(object):
                     Logger().Log(Text.TEXT68)
                     return 
 
+              AccountMgr().Instance().addVote(voter,pb,voteNum,nowTime)
  
               url = Text.TEXT60.format(trxid)
               r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.VOTETEMPLATEID,"url":url,
