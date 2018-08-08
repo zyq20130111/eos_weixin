@@ -296,17 +296,17 @@ class AccountMgr(object):
            sql = "SELECT * FROM voter_tbl where voter ='%s' and proudcer = '%s' and vote = %d" %(vote,pb,votenum)
            
            cursor.execute(sql)
-           print sql 
+           
            cursor.fetchall()   
            if(cursor.rowcount > 0):
               return
            
-           sql = "INSERT INTO voter_tbl(voter,producer,date,vote)VALUES ('%s','%s','%s',%d)" %(vote,pb,date,votenum)
+           sql = "INSERT INTO voter_tbl(voter,proudcer,date,vote)VALUES ('%s','%s','%s',%d)" %(vote,pb,date,votenum)
           
-           print sql 
+            
            cursor.execute(sql)
            db.commit()
-           print sql
+          
            cursor.close()
            db.close()
 
