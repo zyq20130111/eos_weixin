@@ -106,7 +106,7 @@ class BlockMgr(object):
            trxid = "00000000"
            if("id" in trxJson["trx"]):
              trxid = trxJson["trx"]["id"]
-             print trxJson
+            
 
            if("transaction" in trxJson["trx"]):
               if("actions" in trxJson["trx"]["transaction"]):
@@ -120,8 +120,7 @@ class BlockMgr(object):
     
     
     def parseAction(self,actionJson,trxid):
-        print "parseAction"
-        print actionJson
+        
         Logger().Log(Text.TEXT29)
         action = Action(actionJson.get("account"),actionJson.get("name"),actionJson.get("data"))
         

@@ -311,7 +311,7 @@ class AccountMgr(object):
        except:
            Logger().Log("addVote fail")
 
-    def addTransfer(transferor,recipient,date,quantity):
+    def addTransfer(self,transferor,recipient,date,quantity):
 
        Logger().Log("addTransfer")
        try:
