@@ -288,12 +288,13 @@ class AccountMgr(object):
 
     def addVote(self,vote,pb,votenum,date):
       
-       Logger().Log("addVote")
+       print("addVote")
        try:
            db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
  
            cursor = db.cursor()
            sql = "SELECT * FROM voter_tbl where voter ='%s' and pb = '%s' and votenum = %d" %(vote,pb,votenum)
+           print sql
            cursor.execute(sql)
         
            cursor.fetchall()   
