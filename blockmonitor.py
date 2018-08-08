@@ -119,7 +119,7 @@ class BlockMgr(object):
     
     
     def parseAction(self,actionJson,trxid):
-        #print actionJson
+        print actionJson
         Logger().Log(Text.TEXT29)
         action = Action(actionJson.get("account"),actionJson.get("name"),actionJson.get("data"))
         
