@@ -106,6 +106,7 @@ class BlockMgr(object):
            trxid = "00000000"
            if("id" in trxJson["trx"]):
              trxid = trxJson["trx"]["id"]
+             print trxJson
 
            if("transaction" in trxJson["trx"]):
               if("actions" in trxJson["trx"]["transaction"]):
