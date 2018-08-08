@@ -318,6 +318,11 @@ class AccountMgr(object):
            db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
 
            cursor = db.cursor()
+           sql = "SELECT * FROM transfer_tbl  where transferor ='%s' and recipient = '%s' and quantity = '%s'" %(transferor,recipient,quantity)
+           cursor.execute(sql)
+           if(cursor.rowcount > 0):
+              return
+
            sql = "INSERT INTO transfer_tbl(transferor,recipient,date,quantity)VALUES ('%s','%s','%s','%s')" %(transferor,recipient,date,quantity)
 
            cursor.execute(sql)
