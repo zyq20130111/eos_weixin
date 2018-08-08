@@ -293,8 +293,8 @@ class AccountMgr(object):
            db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
  
            cursor = db.cursor()
-           sql = "SELECT * FROM voter_tbl where voter ='%s' and pb = '%s' and votenum = %d" %(vote,pb,votenum)
-           print sql
+           sql = "SELECT * FROM voter_tbl where voter ='%s' and proudcer = '%s' and vote = %d" %(vote,pb,votenum)
+           
            cursor.execute(sql)
         
            cursor.fetchall()   
@@ -305,7 +305,7 @@ class AccountMgr(object):
            
            cursor.execute(sql)
            db.commit()
-           print sql
+           
            cursor.close()
            db.close()
 
