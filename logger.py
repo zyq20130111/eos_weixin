@@ -37,6 +37,7 @@ class Logger(object):
      
     def Log(self,msg):
        #self.logger.debug(msg)
+       i = 1
      
     def Error(self,msg):
         self.logger.error(msg)
