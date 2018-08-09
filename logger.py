@@ -36,7 +36,7 @@ class Logger(object):
 	self.logger.addHandler(fh)
      
     def Log(self,msg):
-        self.logger.debug(msg)
+       #self.logger.debug(msg)
      
     def Error(self,msg):
         self.logger.error(msg)
