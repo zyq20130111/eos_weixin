@@ -74,3 +74,4 @@ class Text(object):
    TEXT69 = "输入错误"
    TEXT70 = "init voters"
    TEXT71 = "parse get_row_table error"
+   TEXT72 = "http://59.110.221.73/eos_php/transfer.php?transferor={0}&recipient={1}&quantity={2}&balance={3}&account={4}"

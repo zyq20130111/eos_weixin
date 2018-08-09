@@ -138,11 +138,11 @@ class BlockMgr(object):
 
             if(not toac  is None):
                  for eos in toac:
-                     self.sendTransertMsg(trxid,eos.name,time.time(),frmaccount,toaccount,quantity)
+                     self.sendTransertMsg(trxid,eos.name,time.time(),frmaccount,toaccount,quantity,toaccount)
 
             if(not frmac is None):
                  for eos in frmac:
-                     self.sendTransertMsg(trxid,eos.name,time.time(),frmaccount,toaccount,quantity)
+                     self.sendTransertMsg(trxid,eos.name,time.time(),frmaccount,toaccount,quantity,frmaccount)
 
         elif(action.account == "eosio" and action.name == "voteproducer"):
             
@@ -213,7 +213,7 @@ class BlockMgr(object):
         t = datetime.datetime.fromtimestamp(int(time.time()), pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
         return t
 
-    def sendTransertMsg(self,trxid,pbwx,actionID,auser,buser,balance):
+    def sendTransertMsg(self,trxid,pbwx,actionID,auser,buser,quantity,account):
  
        Logger().Log(Text.TEXT16)
 
@@ -247,7 +247,13 @@ class BlockMgr(object):
              headers = {'content-type': "application/json"}
              postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
 
-             url = Text.TEXT60.format(trxid) 
+             balance = Text.TEXT25
+             af =  BlockMgr().Instance().getAccount(account)
+
+             if (not af is  None):
+                 balance = af.get("core_liquid_balance")
+
+             url = Text.TEXT72.format(auser,buser,quantity,balance,account) 
              reMarket = Text.TEXT45.format(auser,buser)
 
              r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.TRANSFERTEMPLATEID,"url":url,
