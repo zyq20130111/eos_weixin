@@ -152,7 +152,7 @@ class BlockMgr(object):
                  pbwx = AccountMgr().Instance().getWeiXinId(pb) 
                  if(not pbwx is None):
                     for eos in pbwx:
-                        self.sendVoteMsg(trxid,eos.name,voter,pb)
+                        self.sendVoteMsg(trxid,eos.name,voter,pb,action)
  
         return action;
 
@@ -276,7 +276,7 @@ class BlockMgr(object):
           return  long(weight) / 10000                 
 
 
-    def sendVoteMsg(self,trxid,pbwx,voter,pb):
+    def sendVoteMsg(self,trxid,pbwx,voter,pb,action):
         
        Logger().Log(Text.TEXT18)
        token = AccessMgr().Instance().getToken()
@@ -301,7 +301,12 @@ class BlockMgr(object):
                     Logger().Log(Text.TEXT68)
                     return 
  
-              url = Text.TEXT60.format(trxid)
+              producers = ""
+              if(not action is None):
+                  producers =  action.data.get("producers")
+                  producers = ','.join(producers)
+
+              url = Text.TEXT60.format(voter,producers,voteNum,pb)
               r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.VOTETEMPLATEID,"url":url,
               "data":{"first":{"value":Text.TEXT40},"keyword1":{"value":Text.TEXT41},"keyword2":{"value":nowTime},"remark":{"value":remark}}}),headers = headers);
               

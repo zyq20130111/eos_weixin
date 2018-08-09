@@ -62,7 +62,7 @@ class Text(object):
    TEXT57 = "注销了微信号"
    TEXT58 = "此微信号没有绑定该账号"
    TEXT59 = "使用unbind xxx解除绑定"
-   TEXT60 = "https://www.myeoskit.com/#/tx/{0}"
+   TEXT60 = "http://59.110.221.73/eos_php/vote.php?voter={0}&producers={1}&votenum={2}&producer={3}"
    TEXT61 = "addremind"
    TEXT62 = "addremind success"
    TEXT63 = "add remind failed"
