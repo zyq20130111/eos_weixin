@@ -301,7 +301,7 @@ class BlockMgr(object):
                     voteNum = re.vote
         
               
-              AccountMgr().Instance().addVote(voter,pb,voteNum,nowTime)
+              AccountMgr().Instance().addVote(voter,pb,accountNum,nowTime)
               
               if(accountNum < voteNum): 
                     Logger().Log(Text.TEXT68)
@@ -312,7 +312,7 @@ class BlockMgr(object):
                   producers =  action.data.get("producers")
                   producers = ','.join(producers)
 
-              url = Text.TEXT60.format(voter,producers,voteNum,pb)
+              url = Text.TEXT60.format(voter,producers,accountNum,pb)
               r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.VOTETEMPLATEID,"url":url,
               "data":{"first":{"value":Text.TEXT40},"keyword1":{"value":Text.TEXT41},"keyword2":{"value":nowTime},"remark":{"value":remark}}}),headers = headers);
               
