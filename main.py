@@ -90,4 +90,4 @@ if __name__ == '__main__':
     AccountMgr().Instance().Init()
     BlockMgr().Instance().Start()
     app = web.application(urls, globals())
-    app.run()
+    app.run('0.0.0.0:1234')
