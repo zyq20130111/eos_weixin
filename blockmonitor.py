@@ -214,7 +214,7 @@ class BlockMgr(object):
         return t
 
     def sendTransertMsg(self,trxid,pbwx,actionID,auser,buser,quantity,account):
-       print "sendTransertMsg" 
+        
        Logger().Log(Text.TEXT16)
 
        transfer = 0
