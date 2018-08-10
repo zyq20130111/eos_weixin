@@ -221,12 +221,12 @@ class BlockMgr(object):
        re = AccountMgr().Instance().getRemind(pbwx)
        if not re is None:
           transfer = re.transfer
-       
+       print "11111" 
        balanceSplt = balance.split("EOS")
        if(len(balanceSplt) <= 0 ):
           Logger().Log(Text.TEXT67)
           return
-
+       print "22222"
        nowTime = self.getDateTime()
        try:
              print "addTransfer"
