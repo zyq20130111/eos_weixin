@@ -1,5 +1,5 @@
 #/usr/bin/python
-endTransertMsg -*- coding: UTF-8 -*-
+-*- coding: UTF-8 -*-
 
 import datetime
 import threading
