@@ -229,7 +229,9 @@ class BlockMgr(object):
 
        nowTime = self.getDateTime()
        try:
+             print "addTransfer"
              AccountMgr().Instance().addTransfer(auser,buser,nowTime,balance)
+             print "addTransfer1"
        except:
              Logger().Log(Text.TEXT17)
              return
