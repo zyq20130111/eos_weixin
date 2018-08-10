@@ -322,7 +322,7 @@ class AccountMgr(object):
 
            cursor = db.cursor()
            sql = "SELECT * FROM transfer_tbl  where transferor ='%s' and recipient = '%s' and quantity = '%s'" %(transferor,recipient,quantity)
-           print sql
+           
            cursor.execute(sql)
 
            cursor.fetchall()
