@@ -1,5 +1,5 @@
 #/usr/bin/python
-# -*- coding: UTF-8 -*-
+endTransertMsg -*- coding: UTF-8 -*-
 
 import datetime
 import threading
@@ -232,19 +232,17 @@ class BlockMgr(object):
        if not re is None:
           transfer = re.transfer
 
-       print "ssss"
        
        balanceSplt = quantity.split("EOS")
        if(len(balanceSplt) <= 0 ):
           Logger().Log(Text.TEXT67)
           return
             
-       print "22222"       
+             
        if(float(balanceSplt[0]) < transfer):
           Logger().Log(Text.TEXT68)
           return
        
-       print "33333"
        token = AccessMgr().Instance().getToken()
        if not token is None:
           try:
@@ -260,8 +258,9 @@ class BlockMgr(object):
 
              url = Text.TEXT72.format(auser,buser,quantity,balance,account) 
              reMarket = Text.TEXT45.format(auser,buser)
+
+             nowTime = self.getDateTime()
              
-             print "444444"
              r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.TRANSFERTEMPLATEID,"url":url,
              "data":{"first":{"value":Text.TEXT43},"keyword1":{"value":actionID},"keyword2":{"value":nowTime},
              "keyword3":{"value":actionID},"keyword4":{"value":Text.TEXT44},"keyword5":{"value":balance},"remark":{"value":reMarket}}}),headers = headers);
