@@ -144,6 +144,14 @@ class BlockMgr(object):
                  for eos in frmac:
                      self.sendTransertMsg(trxid,eos.name,time.time(),frmaccount,toaccount,quantity,frmaccount)
 
+            try:
+                 nowTime = self.getDateTime()
+                 AccountMgr().Instance().addTransfer(frmaccount,toaccount,nowTime,quantity)
+            except:
+                 Logger().Log(Text.TEXT17)
+                 return
+
+
         elif(action.account == "eosio" and action.name == "voteproducer"):
             
             voter = action.data.get("voter")           
@@ -226,14 +234,7 @@ class BlockMgr(object):
        if(len(balanceSplt) <= 0 ):
           Logger().Log(Text.TEXT67)
           return
-       
-       nowTime = self.getDateTime()
-       try:
-             AccountMgr().Instance().addTransfer(auser,buser,nowTime,quantity)
-       except:
-             Logger().Log(Text.TEXT17)
-             return
-           
+            
        
        if(float(balanceSplt[0]) < transfer):
           Logger().Log(Text.TEXT68)
