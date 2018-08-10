@@ -89,5 +89,6 @@ if __name__ == '__main__':
     createMenu()
     AccountMgr().Instance().Init()
     BlockMgr().Instance().Start()
+    print globals()
     app = web.application(urls, globals())
     app.run()
