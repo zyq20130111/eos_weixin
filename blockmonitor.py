@@ -136,6 +136,7 @@ class BlockMgr(object):
             toac = AccountMgr().Instance().getWeiXinId(toaccount)
             frmac = AccountMgr().Instance().getWeiXinId(frmaccount)
 
+            print "sssssss"
             if(not toac  is None):
                  for eos in toac:
                      self.sendTransertMsg(trxid,eos.name,time.time(),frmaccount,toaccount,quantity,toaccount)
@@ -144,6 +145,7 @@ class BlockMgr(object):
                  for eos in frmac:
                      self.sendTransertMsg(trxid,eos.name,time.time(),frmaccount,toaccount,quantity,frmaccount)
 
+            print "222222222"
             try:
                  nowTime = self.getDateTime()
                  AccountMgr().Instance().addTransfer(frmaccount,toaccount,nowTime,quantity)
