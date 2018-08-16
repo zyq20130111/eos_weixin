@@ -263,7 +263,7 @@ class BlockMgr(object):
              
              r = requests.post(postUrl,data =json.dumps({"touser":pbwx,"template_id":Config.TRANSFERTEMPLATEID,"url":url,
              "data":{"first":{"value":Text.TEXT43},"keyword1":{"value":actionID},"keyword2":{"value":nowTime},
-             "keyword3":{"value":actionID},"keyword4":{"value":Text.TEXT44},"keyword5":{"value":balance},"remark":{"value":reMarket}}}),headers = headers);
+             "keyword3":{"value":actionID},"keyword4":{"value":Text.TEXT44},"keyword5":{"value":quantity},"remark":{"value":reMarket}}}),headers = headers);
 
              if( r.status_code == 200):
                 js = json.loads(r.text)
