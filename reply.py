@@ -235,7 +235,7 @@ class EventMsg(Msg):
               for eos in accounts :
                    strAcc = "http://www.eosgalaxy.io/account?account={0}".format(eos.eos_name)
 
-                   if(not content == ""):
+                   if(not (content == "")):
                         content =  content + '\r\n<a href="{0}">{1}</a>'.format(strAcc,eos.eos_name)
              
               print content 
