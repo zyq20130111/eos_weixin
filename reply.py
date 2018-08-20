@@ -234,9 +234,11 @@ class EventMsg(Msg):
               content = ""
               for eos in accounts :
                    strAcc = "http://www.eosgalaxy.io/account?account={0}".format(eos.eos_name)
-
+                   
                    if(not (content == "")):
                         content =  content + '\r\n<a href="{0}">{1}</a>'.format(strAcc,eos.eos_name)
+                   else:
+                        content =  content + '<a href="{0}">{1}</a>'.format(strAcc,eos.eos_name)
              
               print content 
               self.__dict['Content'] = content
