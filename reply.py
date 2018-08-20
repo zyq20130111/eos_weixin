@@ -245,7 +245,7 @@ class EventMsg(Msg):
               self.__dict['Content'] = Text.TEXT64
               return self.sendMsg()
  
-   def getaccount(self,account):
+    def getaccount(self,account):
 
        Logger().Log(Text.TEXT34)
        af =  BlockMgr().Instance().getAccount(account)
