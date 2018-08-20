@@ -234,10 +234,9 @@ class EventMsg(Msg):
               content = ""
               for eos in accounts :
                    strAcc = "http://www.eosgalaxy.io/account?account={0}".format(eos.eos_name)
-                   content =  content + '\r\n<a href="{0}">{1}</a>'.format(strAcc,eos.eos_name)
-                   #title = Text.TEXT51.format(eos.eos_name)
-                   #eosdesc = self.getaccount(eos.eos_name)
-                   #content = "%s%s%s\n\r\n\r" %(content, title , eosdesc)  
+
+                   if(not content == ""):
+                        content =  content + '\r\n<a href="{0}">{1}</a>'.format(strAcc,eos.eos_name)
              
               print content 
               self.__dict['Content'] = content
@@ -245,7 +244,8 @@ class EventMsg(Msg):
         elif((self.event == "CLICK") and (self.eventkey == "set")):
               self.__dict['Content'] = Text.TEXT64
               return self.sendMsg()
-    def getaccount(self,account):
+ 
+   def getaccount(self,account):
 
        Logger().Log(Text.TEXT34)
        af =  BlockMgr().Instance().getAccount(account)
