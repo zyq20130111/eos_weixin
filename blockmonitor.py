@@ -87,7 +87,7 @@ class BlockMgr(object):
    
     def parseBlock(self,blockJson):
         
-        Logger().Log(Text.TEXT27)       
+        print(Text.TEXT27)       
         block = BlockInfo()        
         if("transactions" in blockJson):
               for trx in blockJson["transactions"]:
@@ -99,7 +99,7 @@ class BlockMgr(object):
 
     def parseTransaction(self,trxJson):
 
-        Logger().Log(Text.TEXT28)
+        print(Text.TEXT28)
         trx = Transaction()
         if("trx" in trxJson):
 
