@@ -121,7 +121,7 @@ class BlockMgr(object):
     
     def parseAction(self,actionJson,trxid):
         
-        Logger().Log(Text.TEXT29)
+        print(Text.TEXT29)
         action = Action(actionJson.get("account"),actionJson.get("name"),actionJson.get("data"))
         
         if(action.data is None):
@@ -168,7 +168,7 @@ class BlockMgr(object):
 
     def getBlockInfo(self,blockid):
      
-        Logger().Log(Text.TEXT10 % (blockid))
+        print(Text.TEXT10 % (blockid))
         headers = {'content-type': "application/json"}
         url = Config.HTTP_URL + "get_block"
         try:
