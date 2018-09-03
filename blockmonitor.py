@@ -156,13 +156,15 @@ class BlockMgr(object):
 
         elif(action.account == "eosio" and action.name == "voteproducer"):
             
-            voter = action.data.get("voter")           
+            voter = action.data.get("voter")
+            accountNum = self.getAccountDelegate(voter)
+           
             for pb in action.data.get("producers"):
 
                  pbwx = AccountMgr().Instance().getWeiXinId(pb) 
                  if(not pbwx is None):
                     for eos in pbwx:
-                        self.sendVoteMsg(trxid,eos.name,voter,pb,action)
+                        self.sendVoteMsg(trxid,eos.name,voter,pb,action,accountNum)
  
         return action;
 
@@ -287,7 +289,7 @@ class BlockMgr(object):
           return  long(weight) / 10000                 
 
 
-    def sendVoteMsg(self,trxid,pbwx,voter,pb,action):
+    def sendVoteMsg(self,trxid,pbwx,voter,pb,action,accountNum):
         
        Logger().Log(Text.TEXT18)
        token = AccessMgr().Instance().getToken()
@@ -296,7 +298,6 @@ class BlockMgr(object):
               headers = {'content-type': "application/json"}
               postUrl = ("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s" %(token))
               
-              accountNum = self.getAccountDelegate(voter)
               nowTime = self.getDateTime()
               remark = Text.TEXT42.format(voter,pb,accountNum)
              
