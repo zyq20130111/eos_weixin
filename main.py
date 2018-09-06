@@ -53,6 +53,11 @@ def createMenu():
                 "sub_button":
                 [
                     {
+                        "type": "view",
+                        "name": "创建EOS账号",
+                        "url": "http://www.eosgalaxy.io/create"
+                    },
+                    {
                         "type": "click",
                         "name": "绑定EOS账号",
                         "key": "bind"
