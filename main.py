@@ -49,7 +49,7 @@ def createMenu():
                 "url":  "http://www.huoxing24.com/newsdetail/20180712195305691775.html"
             },
             {
-                "name": "账号查询",
+                "name": "账号管理",
                 "sub_button":
                 [
                     {
