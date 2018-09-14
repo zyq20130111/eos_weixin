@@ -18,7 +18,7 @@ class Action(object):
                 return "hello, this is handle view"
 
             openid = data.openid
-            
+            return data 
             user = data.user
             return user
 
