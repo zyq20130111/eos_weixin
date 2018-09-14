@@ -18,18 +18,14 @@ class Action(object):
             if len(data) == 0:
                 return "hello, this is handle view"           
                          
-            data1  = json.loads('{"account":"123123111qqq","openid":"of9I709bKnn_2w7eNKmGOcGF9Y2k”}')
+            jsdata  = json.loads(data)
                     
-            openid = data1['openid']
-            return openid
-
-            account = data['account']
-            return account
+            openid = jsdata['openid']
+            account = jsdata['account']
 
             db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
             cursor = db.cursor()
- 
-            return account           
+            
             sql = "SELECT * FROM order_tbl where open_id ='%s' and username = '%s'" %(openid,account)
             cursor.execute(sql)
 
