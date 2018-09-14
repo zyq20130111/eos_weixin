@@ -28,13 +28,13 @@ class Action(object):
             #cursor.execute(sql)
 
             #cursor.fetchall()
-            #if(cursor.rowcount <= 0):
+            #if(cursor.rowcount > 0):
                #AccountMgr().Instance().AddAccount(openid,account,"demo")                    
 
             #cursor.close()
             #db.close()
 
-            return '{"code":0}' 
+            return "aaaa" 
 
         except Exception, Argument:
-            return '{"code":-1}'
+            return 'bbbb'
