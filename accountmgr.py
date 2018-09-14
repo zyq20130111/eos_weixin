@@ -153,7 +153,7 @@ class AccountMgr(object):
               cursor.execute(sql)
               cursor.fetchall()
  
-             if(cursor.rowcount > 0):
+              if(cursor.rowcount > 0):
                    cursor.close()
                    db.close()
                    return 
