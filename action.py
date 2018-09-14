@@ -17,7 +17,8 @@ class Action(object):
             data = web.data()
             if len(data) == 0:
                 return "hello, this is handle view"
-            
+            web.header('Content-Type', 'application/json')
+           
             jsdata  = json.loads(data.text)
             return jsdata            
             openid = data['openid']
