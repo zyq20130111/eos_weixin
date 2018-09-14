@@ -18,7 +18,7 @@ class Action(object):
             if len(data) == 0:
                 return "hello, this is handle view"           
                          
-            data1  = json.loads(data)
+            data1  = json.loads('{"account":"123123111qqq", "openid":"of9I709bKnn_2w7eNKmGOcGF9Y2k”}')
                     
             openid = data1['openid']
             return openid
