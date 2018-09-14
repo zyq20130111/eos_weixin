@@ -16,4 +16,4 @@ class Action(object):
             return "openid"
 
         except Exception, Argument:
-            return '{"code":-1}'
+            return "aa"
