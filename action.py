@@ -15,7 +15,7 @@ class Handle(object):
 
             openid  = data.openid
             account = data.account
-            return '{"code":0}
+            return '{"code":0}'
 
         except Exception, Argument:
             return '{"code":-1}'
