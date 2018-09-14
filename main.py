@@ -7,6 +7,7 @@ import time
 from config import Config
 from menu import Menu
 from handle import Handle
+from action import Action
 from basic import Basic
 from blockmonitor import BlockMgr
 from accessmgr import AccessMgr
@@ -16,6 +17,7 @@ import sys
 
 urls = (
     '/wx', 'Handle',
+    '/action','Action'
 )
 
 
