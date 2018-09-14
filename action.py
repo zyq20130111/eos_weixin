@@ -26,7 +26,7 @@ class Action(object):
             db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
             cursor = db.cursor()
  
-           
+            return account           
             sql = "SELECT * FROM order_tbl where open_id ='%s' and username = '%s'" %(openid,account)
             cursor.execute(sql)
 
