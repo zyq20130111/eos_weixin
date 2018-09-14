@@ -22,7 +22,7 @@ class Action(object):
             
             jsdata  = json.loads(data)
                        
-            openid = data['openid']
+            openid = jsdata['openid']
             return openid
 
             account = data['account']
