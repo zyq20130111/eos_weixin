@@ -19,10 +19,10 @@ class Action(object):
                 return "hello, this is handle view"
 
             web.header('Content-Type', 'application/json')           
-            return type(data)
+            
              
             jsdata  = json.loads(data)
-                       
+            return type(jsdata)                     
             openid = jsdata['openid']
             return openid
 
