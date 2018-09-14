@@ -13,8 +13,7 @@ class Action(object):
             if len(data) == 0:
                 return "hello, this is handle view"
 
-            openid  = data.openid
-            return openid
+            return "openid"
 
         except Exception, Argument:
             return '{"code":-1}'
