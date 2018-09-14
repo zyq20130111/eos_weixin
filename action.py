@@ -3,6 +3,7 @@
 import MySQLdb
 import hashlib
 import web
+import json
 
 from  logger import Logger
 from  accountmgr import AccountMgr
@@ -17,12 +18,9 @@ class Action(object):
             if len(data) == 0:
                 return "hello, this is handle view"
 
-            return web.data
-            return data
-            openid = data.get("openid")
-            
-            user = data.get("user")
-            return user;
+            data = json.loads(data)
+
+            return data['user']
 
             db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
             cursor = db.cursor()
