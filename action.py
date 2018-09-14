@@ -11,7 +11,7 @@ from config import Config
 
 class Action(object):
 
-    def GET(self):
+    def POST(self):
         try:
             data = web.input()
             if len(data) == 0:
