@@ -5,7 +5,7 @@ import web
 from  logger import Logger
 from text import Text
 
-class Handle(object):
+class Action(object):
 
     def GET(self):
         try:
