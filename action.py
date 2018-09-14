@@ -15,9 +15,6 @@ class Action(object):
 
             openid  = data.openid
             return openid
-            account = data.account
-            return account
-            return '{"code":0}'
 
         except Exception, Argument:
             return '{"code":-1}'
