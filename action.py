@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # filename: handle.py
+import MySQLdb
 import hashlib
 import web
 from  logger import Logger
@@ -20,7 +21,7 @@ class Action(object):
 
             openid  = data.openid
             account = data.account
-            return openid
+           
             sql = "SELECT * FROM order_tbl where open_id ='%s' and username = '%s'" %(openid,account)
             cursor.execute(sql)
 
