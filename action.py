@@ -3,7 +3,9 @@
 import hashlib
 import web
 from  logger import Logger
-from text import Text
+from  accountmgr import AccountMgr
+from text  import Text
+from config import Config
 
 class Action(object):
 
@@ -13,7 +15,20 @@ class Action(object):
             if len(data) == 0:
                 return "hello, this is handle view"
 
-            return data.openid
+            db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
+            cursor = db.cursor()
+
+            openid  = data.openid
+            account = data.account
+
+            sql = "SELECT * FROM order_tbl where open_id ='%s' and username = '%s'" %(openid,account)
+            cursor.execute(sql)
+
+            cursor.fetchall()
+            if(cursor.rowcount <= 0):
+               AccountMgr().Instance().AddAccount(openid,account,"demo")                    
+
+            return '{"code":0}' 
 
         except Exception, Argument:
-            return "aa"
+            return '{"code":-1}'
