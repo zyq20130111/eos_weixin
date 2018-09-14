@@ -17,6 +17,7 @@ class Action(object):
             if len(data) == 0:
                 return "hello, this is handle view"
 
+            return data
             openid = data.get("openid")
             
             user = data.get("user")
