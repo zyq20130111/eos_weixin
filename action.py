@@ -14,11 +14,9 @@ class Action(object):
 
     def POST(self):
         try:
-            data = web.input()
+            data = web.data()
             if len(data) == 0:
                 return "hello, this is handle view"
-
-            return web.data()
 
             data = json.loads(data)
 
