@@ -17,12 +17,10 @@ class Action(object):
             data = web.data()
             if len(data) == 0:
                 return "hello, this is handle view"           
-            
-            return data             
-            jsdata  = json.loads(data)
-            return jsdata 
+                         
+            data1  = json.loads(data)
                     
-            openid = jsdata['openid']
+            openid = data1['openid']
             return openid
 
             account = data['account']
