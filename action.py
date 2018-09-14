@@ -20,9 +20,11 @@ class Action(object):
 
             web.header('Content-Type', 'application/json')           
             
-            jsdata  = json.dumps(data)
+            jsdata  = json.loads(data)
                        
             openid = data['openid']
+            return openid
+
             account = data['account']
             return openid
             return account
