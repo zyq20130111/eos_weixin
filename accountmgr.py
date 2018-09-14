@@ -148,6 +148,17 @@ class AccountMgr(object):
 
               db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
               cursor = db.cursor()
+
+              sql = "select * from weixin_tbl where name ='%s' and eos_name = '%s'" %(name,eos_name)
+              cursor.execute(sql)
+              cursor.fetchall()
+ 
+             if(cursor.rowcount > 0):
+                   cursor.close()
+                   db.close()
+                   return 
+
+
               sql = "INSERT INTO weixin_tbl(name,eos_name, demo)VALUES ('%s','%s','%s')" %(name,eos_name,demo)
               
               cursor.execute(sql)
