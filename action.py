@@ -21,6 +21,7 @@ class Action(object):
 
             openid  = data.openid
             account = data.account
+            return openid
            
             sql = "SELECT * FROM order_tbl where open_id ='%s' and username = '%s'" %(openid,account)
             cursor.execute(sql)
