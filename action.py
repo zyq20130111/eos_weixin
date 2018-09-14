@@ -22,7 +22,8 @@ class Action(object):
             
              
             jsdata  = json.loads(data)
-            return type(jsdata)                     
+            return jsdata 
+                    
             openid = jsdata['openid']
             return openid
 
