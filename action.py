@@ -31,7 +31,12 @@ class Action(object):
 
             cursor.fetchall()
             if(cursor.rowcount > 0):
-               AccountMgr().Instance().AddAccount(openid,account,"demo")                    
+
+               sql = "select * from weixin_tbl where name ='%s' and eos_name = '%s'" %(openid,account)
+               cursor.execute(sql)
+
+               if(cursor.rowcount <= 0):
+                      AccountMgr().Instance().AddAccount(openid,account,"demo")                    
 
             cursor.close()
             db.close()
