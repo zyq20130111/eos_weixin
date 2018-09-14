@@ -18,8 +18,8 @@ class Action(object):
             if len(data) == 0:
                 return "hello, this is handle view"
 
-            #jsdata  = json.loads(data)
-            #return jsdata            
+            jsdata  = json.loads(data)
+            return jsdata            
             openid = data['openid']
             account = data['account']
             return openid
