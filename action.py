@@ -36,7 +36,7 @@ class Action(object):
             cursor.close()
             db.close()
 
-            return "aaaa" 
+            return '{"code":0}' 
 
         except Exception, Argument:
-            return 'bbbb'
+            return '"code":-1'
