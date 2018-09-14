@@ -14,7 +14,9 @@ class Action(object):
                 return "hello, this is handle view"
 
             openid  = data.openid
+            return openid
             account = data.account
+            return account
             return '{"code":0}'
 
         except Exception, Argument:
