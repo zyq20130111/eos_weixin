@@ -20,22 +20,22 @@ class Action(object):
 
             data = json.loads(data)
 
-            return data['user']
+            openid = data['openid']
+            account = data['account']
 
             db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
             cursor = db.cursor()
  
-            return openid
            
-            #sql = "SELECT * FROM order_tbl where open_id ='%s' and username = '%s'" %(openid,account)
-            #cursor.execute(sql)
+            sql = "SELECT * FROM order_tbl where open_id ='%s' and username = '%s'" %(openid,account)
+            cursor.execute(sql)
 
-            #cursor.fetchall()
-            #if(cursor.rowcount > 0):
-               #AccountMgr().Instance().AddAccount(openid,account,"demo")                    
+            cursor.fetchall()
+            if(cursor.rowcount > 0):
+               AccountMgr().Instance().AddAccount(openid,account,"demo")                    
 
-            #cursor.close()
-            #db.close()
+            cursor.close()
+            db.close()
 
             return "aaaa" 
 
