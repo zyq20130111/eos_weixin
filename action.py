@@ -21,7 +21,7 @@ class Action(object):
             web.header('Content-Type', 'application/json')           
             
              
-            jsdata  = json.loads(data)
+            jsdata  = json.loads(str(data))
             return jsdata 
                     
             openid = jsdata['openid']
