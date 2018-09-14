@@ -18,6 +18,8 @@ class Action(object):
             if len(data) == 0:
                 return "hello, this is handle view"
 
+            return web.data()
+
             data = json.loads(data)
 
             return data['user']
