@@ -23,6 +23,7 @@ class Action(object):
             openid = data['openid']
             account = data['account']
 
+            return account
             db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
             cursor = db.cursor()
  
