@@ -18,8 +18,9 @@ class Action(object):
                 return "hello, this is handle view"
 
             openid = data.openid
-            return openid
+            
             user = data.user
+            return user
 
             db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
             cursor = db.cursor()
