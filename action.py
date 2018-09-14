@@ -18,10 +18,10 @@ class Action(object):
             if len(data) == 0:
                 return "hello, this is handle view"
 
-            data = json.loads(data)
-
-            openid = data['openid']
-            account = data['account']
+            jsdata  = json.loads(data)
+            
+            openid = jsdata['openid']
+            account = jsdata['account']
 
             return account
             db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
