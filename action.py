@@ -16,20 +16,18 @@ class Action(object):
         try:
             data = web.data()
             if len(data) == 0:
-                return "hello, this is handle view"
-
-            web.header('Content-Type', 'application/json')           
+                return "hello, this is handle view"           
             
             return data             
-            jsdata  = json.loads(str(data))
+            jsdata  = json.loads(data)
             return jsdata 
                     
             openid = jsdata['openid']
             return openid
 
             account = data['account']
-            return openid
             return account
+
             db = MySQLdb.connect(Config.DB_SERVER, Config.DB_USER, Config.DB_PWD, Config.DB_NAME, charset='utf8' )
             cursor = db.cursor()
  
