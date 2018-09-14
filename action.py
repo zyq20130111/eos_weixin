@@ -21,7 +21,7 @@ class Action(object):
             web.header('Content-Type', 'application/json')           
             
             jsdata  = json.dumps(data)
-            return jsdata            
+                       
             openid = data['openid']
             account = data['account']
             return openid
